@@ -1,17 +1,15 @@
-
 .btncolor {
-     background-color: #FF9800;
-     color: white;
-     border: none;
-     border-radius: 40px;
-     cursor: pointer;
-     margin-left: 0px;
-     margin-right: 0px;
-     width: 100%;
+  background-color: #FF9800;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 100%;
 }
 
-.btncolor:disabled,
-.btncolor[disabled]{
+.btncolor:disabled, .btncolor[disabled] {
   background-color: #cccccc;
   color: #666666;
 }
@@ -21,4 +19,81 @@
   margin-top: 5px;
   margin-bottom: 18px;
   width: 100%;
+}
+
+#toolbar {
+  background-color: #fb0;
+  position: fixed;
+}
+
+.todoFont {
+  margin-top: 20px;
+  color: black;
+  font: bold 20px Roboto, sans-serif;
+}
+
+.notesFont {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 54px;
+  color: black;
+  font: normal 20px Roboto, sans-serif;
+}
+
+#menuicon {
+  margin-left: 15px;
+  margin-top: 12px;
+  margin-right: 24px;
+  opacity: 0.5;
+}
+
+.searchBox {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  width: 55%;
+  position: relative;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  margin-right: 34px;
+}
+
+.searchInputBox {
+  background: transparent;
+  border: none;
+  font: normal 16px Roboto, sans-serif;
+  height: 40px;
+  outline: none;
+  padding: 11px 16px 11px 16px;
+  box-sizing: border-box;
+}
+
+#searchIcon {
+  opacity: 0.5;
+}
+
+#refreshIcon {
+  margin-top: 12px;
+  opacity: 0.5;
+}
+
+#viewListIcon {
+  margin-top: 12px;
+  margin-right: 24px;
+  opacity: 0.5;
+}
+
+#appsIcon {
+  margin-top: 12px;
+  opacity: 0.5;
+}
+
+#notifyIcon {
+  margin-top: 12px;
+  opacity: 0.5;
+}
+
+#accountIcon {
+  margin-top: 12px;
+  opacity: 0.5;
 }

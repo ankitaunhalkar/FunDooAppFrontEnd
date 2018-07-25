@@ -28,11 +28,11 @@
       <md-input-container style="width: 100%">
         <label>Phone-No:</label>
         <input type="text" ng-model="phone" name="phone" id="phone" minlength="10" maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" required>
-        <span style="color:red" ng-show="registerForm.phone.$dirty && registerForm.phone.$error.pattern">Number should contain 10 digits only.</span>
+        <span ng-show="registerForm.phone.$dirty && registerForm.phone.$error.pattern" style="color: red; font-size: 12px">Number should contain 10 digits only.</span>
         <span ng-show="registerForm.$dirty && registerForm.phone.$error.required" style="color: red; font-size: 12px">Phone Number is a required</span>
       </md-input-container>
 
-      <md-button class = "btncolor" ng-disabled="registerForm.$invalid" ng-click="login()"> Register </md-button>
+      <md-button class = "btncolor" ng-disabled="registerForm.$invalid" ng-click="userRegistration()"> Register </md-button>
 
     </form>
   </div>

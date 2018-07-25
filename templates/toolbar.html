@@ -1,0 +1,37 @@
+<md-toolbar id="toolbar">
+  <div layout="row">
+    <md-button flex="48" class="md-icon-button" id="menuicon" ng-click="toggleLeft()">
+      <img src="assets/images/round-menu-24px.svg" />
+    </md-button>
+    <span class="todoFont"> TODO </span>
+    <span class="notesFont"> Notes </span>
+
+    <div class="searchBox">
+      <md-button class="md-icon-button">
+        <img src="assets/images/round-search-24px.svg" id="searchIcon" />
+      </md-button>
+      <input type="text" ng-model="search" name="search" id="search" placeholder="Search" class="searchInputBox">
+    </div>
+
+    <md-button class="md-icon-button" id="refreshIcon">
+      <img src="assets/images/round-refresh-24px.svg" />
+    </md-button>
+
+    <md-button class="md-icon-button" id="viewListIcon">
+      <img src="assets/images/round-view_stream-24px.svg" />
+    </md-button>
+
+    <md-button class="md-icon-button" id="appsIcon">
+      <img src="assets/images/round-apps-24px.svg" />
+    </md-button>
+
+    <md-button class="md-icon-button" id="notifyIcon">
+      <md-icon md-svg-icon="assets/images/notify.svg"></md-icon>
+    </md-button>
+
+    <md-button class="md-icon-button" id="accountIcon">
+      <img src="assets/images/round-account_circle-24px.svg" />
+    </md-button>
+  </div>
+
+</md-toolbar>

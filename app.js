@@ -16,7 +16,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
   .state('home',{
           url : '/home',
           templateUrl : 'templates/home.html',
-          // controller : 'homeController'
+          controller : 'userController'
   })
 
   .state('forgotpassword',{
@@ -25,7 +25,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           controller : 'userController'
   })
 
-  .state('resetpassword',{
+  .state('resetpassword/:token',{
           url : '/resetpassword',
           templateUrl : 'templates/resetpassword.html',
           controller : 'userController'
