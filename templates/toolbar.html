@@ -1,7 +1,7 @@
-<md-toolbar id="toolbar">
-  <div layout="row">
+<md-toolbar layout="row" id="toolbar">
     <md-button flex="48" class="md-icon-button" id="menuicon" ng-click="toggleLeft()">
-      <img src="assets/images/round-menu-24px.svg" />
+      <img src="assets/images/round-menu-24px.svg"/>
+      <md-tooltip id="tooltip">Main-Menu</md-tooltip>
     </md-button>
     <span class="todoFont"> TODO </span>
     <span class="notesFont"> Notes </span>
@@ -10,28 +10,45 @@
       <md-button class="md-icon-button">
         <img src="assets/images/round-search-24px.svg" id="searchIcon" />
       </md-button>
-      <input type="text" ng-model="search" name="search" id="search" placeholder="Search" class="searchInputBox">
+      <input type="text" ng-model="search" name="search" placeholder="Search" class="searchInputBox">
+      <md-tooltip id="tooltip">Search</md-tooltip>
     </div>
 
     <md-button class="md-icon-button" id="refreshIcon">
       <img src="assets/images/round-refresh-24px.svg" />
+      <md-tooltip id="tooltip">Refresh</md-tooltip>
     </md-button>
 
     <md-button class="md-icon-button" id="viewListIcon">
       <img src="assets/images/round-view_stream-24px.svg" />
+      <md-tooltip id="tooltip"> List View </md-tooltip>
     </md-button>
 
     <md-button class="md-icon-button" id="appsIcon">
       <img src="assets/images/round-apps-24px.svg" />
+      <md-tooltip id="tooltip">Apps</md-tooltip>
     </md-button>
 
     <md-button class="md-icon-button" id="notifyIcon">
       <md-icon md-svg-icon="assets/images/notify.svg"></md-icon>
+      <md-tooltip id="tooltip">Notification</md-tooltip>
     </md-button>
 
-    <md-button class="md-icon-button" id="accountIcon">
+    <md-button class="md-icon-button" id="accountIcon" ng-click="profile()">
       <img src="assets/images/round-account_circle-24px.svg" />
+      <md-tooltip id="tooltip">Account</md-tooltip>
     </md-button>
-  </div>
-
 </md-toolbar>
+
+<div ng-show="isProfileVisible" class="profile">
+  <md-card class="profileCard">
+    <div layout="row">
+      <img src="assets/images/user.png" class="profileImg"/>
+      <span class="nameFont">{{showname}}</span>
+      <div class="emailFont">{{showemail}}</div>
+    </div>
+    <div>
+        <md-button class="md-raised" id="signoutBtn" ng-click="signOut()">Sign out</md-button>
+    </div>
+  </md-card>
+</div>

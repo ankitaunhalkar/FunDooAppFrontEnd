@@ -1,0 +1,35 @@
+.createNote {
+  padding-top: 8%;
+  margin-left: 350px;
+}
+
+.createNoteCard {
+  width: 550px;
+  height: 46px
+}
+
+.noteFont {
+  box-sizing: border-box;
+  font-family: 'Roboto Slab', 'Times New Roman', serif;
+  padding: 12px 15px 15px 15px;
+  opacity: 0.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+}
+
+div[contenteditable=true]:empty::before {
+  content: attr(placeholder);
+}
+
+.listIcon {
+  padding-left: 350px;
+  margin-top: 10px;
+  opacity: 0.5;
+}
+
+.photoIcon {
+  padding-left: 20px;
+  margin-top: 10px;
+  opacity: 0.5;
+}

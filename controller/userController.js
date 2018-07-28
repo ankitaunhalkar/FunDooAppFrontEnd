@@ -1,18 +1,28 @@
-app.controller('userController', function($scope, $state, $location, $mdSidenav, UserService) {
+app.controller('userController', function($scope, $state, $mdSidenav, $location, UserService, $timeout) {
 
+  //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
-    function buildToggler(componentId) {
-      return function() {
-        $mdSidenav(componentId).toggle();
-      };
+  function buildToggler(componentId) {
+    return function() {
+      $mdSidenav(componentId).toggle();
     }
+  };
 
+  //Profile Account
+  $scope.isProfileVisible = false;
+  $scope.profile = function() {
+    $scope.isProfileVisible = $scope.isProfileVisible ? false : true;
+  }
+
+  //Register Form
   $scope.register = function() {
     $state.go('register');
   }
 
+  //Login
   $scope.login = function() {
+
     $scope.userData = {
       email: $scope.email,
       password: $scope.password
@@ -21,14 +31,19 @@ app.controller('userController', function($scope, $state, $location, $mdSidenav,
     var url = "http://localhost:8080/fundoonotes/login";
 
     UserService.postMethod($scope.userData, url).then(function successCallback(response) {
-      console.log(response.headers('Authorization'));
-      $state.go('home');
+
+      localStorage.setItem("loginToken", response.headers('Authorization'));
+      localStorage.setItem("userData", JSON.stringify(response.data));
+
+      $state.go('home.dashboard');
     }, function errorCallback(response) {
       console.log("Error");
       $state.go('login');
     });
   }
 
+
+  //Registration
   $scope.userRegistration = function() {
     $scope.userData = {
       name: $scope.name,
@@ -49,6 +64,7 @@ app.controller('userController', function($scope, $state, $location, $mdSidenav,
     });
   }
 
+  //Forgot Password
   $scope.forgotpassword = function() {
     $scope.userData = {
       emailId: $scope.email
@@ -66,6 +82,7 @@ app.controller('userController', function($scope, $state, $location, $mdSidenav,
     });
   }
 
+  //Reset Password
   $scope.resetpassword = function() {
 
     var token = $location.search().token;
@@ -92,4 +109,25 @@ app.controller('userController', function($scope, $state, $location, $mdSidenav,
     }
   }
 
+  //User Sign-Out
+  $scope.signOut = function() {
+    localStorage.removeItem('loginToken');
+    $state.go('login');
+  }
+
+  //Default call for Home Page
+  homePage();
+
+  function homePage() {
+    if (localStorage.getItem("loginToken") === null) {
+      $state.go('login');
+    } else {
+      $scope.user = JSON.parse(localStorage.getItem("userData"));
+
+      $scope.showemail = $scope.user.email;
+      $scope.showname = $scope.user.username;
+
+      $state.go('home.dashboard');
+    }
+  }
 });

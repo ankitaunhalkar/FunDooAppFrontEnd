@@ -1,0 +1,23 @@
+{
+  "name": "ToDo",
+  "homepage": "https://github.com/ankitaunhalkar/FunDooAppFrontEnd",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "^1.1.10",
+    "angular-filter": "^0.5.17",
+    "angular-smart-table": "^2.1.11",
+    "angular-ui-grid": "^4.6.2",
+    "angular-ui-router": "^1.0.19",
+    "angular": "^1.7.2",
+    "ng-content-editable": "^0.0.5"
+  }
+}

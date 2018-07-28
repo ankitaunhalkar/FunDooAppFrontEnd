@@ -1,0 +1,43 @@
+{
+  "name": "angular-content-editable",
+  "version": "1.2.3",
+  "description": "modify in real time any html tag you want",
+  "main": "dist/angular-content-editable.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "karma start --single-run",
+    "start": "grunt",
+    "prebuild": "npm run test",
+    "build": "grunt build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codekraft-studio/angular-content-editable.git"
+  },
+  "keywords": [
+    "angular",
+    "directive"
+  ],
+  "author": "codekraft-studio",
+  "bugs": {
+    "url": "https://github.com/codekraft-studio/angular-content-editable/issues"
+  },
+  "homepage": "https://github.com/codekraft-studio/angular-content-editable#readme",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.6.5",
+    "angular-mocks": "^1.6.5",
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-uglify": "^0.9.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-ng-annotate": "^3.0.0",
+    "jasmine-core": "^2.6.1",
+    "karma": "^1.6.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4"
+  }
+}

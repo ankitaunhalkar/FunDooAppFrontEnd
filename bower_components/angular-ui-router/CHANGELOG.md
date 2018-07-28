@@ -1,3 +1,64 @@
+## 1.0.19 (2018-07-20)
+[Compare `@uirouter/angularjs` versions 1.0.18 and 1.0.19](https://github.com/angular-ui/ui-router/compare/1.0.18...1.0.19)
+
+### Bug Fixes
+
+* **npm:** Publish to the old angular-ui-router npm package too ([8fc3bb2](https://github.com/angular-ui/ui-router/commit/8fc3bb2))
+* **resolve:** Detect and honor strictDi in angularjs versions 1.3 and 1.4 ([1368c18](https://github.com/angular-ui/ui-router/commit/1368c18)), closes [#3678](https://github.com/angular-ui/ui-router/issues/3678)
+* **state:** When creating absolute hrefs in hashbang mode, include the location.pathname ([cd426e5](https://github.com/angular-ui/ui-router/commit/cd426e5)), closes [#3710](https://github.com/angular-ui/ui-router/issues/3710)
+* **uiview:** Allow uiOnParamsChanged to work with states that have a componentProvider ([fe91bd3](https://github.com/angular-ui/ui-router/commit/fe91bd3)), closes [#3707](https://github.com/angular-ui/ui-router/issues/3707)
+
+
+### Updated `@uirouter/core` from 5.0.19 to 5.0.20
+[Compare `@uirouter/core` versions 5.0.19 and 5.0.20](https://github.com/ui-router/core/compare/5.0.19...5.0.20)
+
+### Bug Fixes
+
+* **params:** When creating an array parameter from a custom type, copy the `raw` property ([b6dd738](https://github.com/ui-router/core/commit/b6dd738)), closes [#178](https://github.com/ui-router/core/issues/178)
+
+
+### Features
+
+* **dynamic:** Support dynamic flag on a state declaration ([3cd5a2a](https://github.com/ui-router/core/commit/3cd5a2a))
+* **transition:** Added transition.paramsChanged() to get added/deleted/changed parameter values for a transition ([10b7fde](https://github.com/ui-router/core/commit/10b7fde))
+* **view:** Add _pluginapi._registeredUIView() to get a ui-view by id ([6533b51](https://github.com/ui-router/core/commit/6533b51))
+
+## 1.0.18 (2018-05-19)
+[Compare `@uirouter/angularjs` versions 1.0.17 and 1.0.18](https://github.com/angular-ui/ui-router/compare/1.0.17...1.0.18)
+
+### Bug Fixes
+
+* **bundles:** Do not run prettier against release/* bundles when publishing to bower ([9b420fa](https://github.com/angular-ui/ui-router/commit/9b420fa))
+
+## 1.0.17 (2018-05-13)
+[Compare `@uirouter/angularjs` versions 1.0.16 and 1.0.17](https://github.com/angular-ui/ui-router/compare/1.0.16...1.0.17)
+
+
+### Updated `@uirouter/core` from 5.0.18 to 5.0.19
+[Compare `@uirouter/core` versions 5.0.18 and 5.0.19](https://github.com/ui-router/core/compare/5.0.18...5.0.19)
+
+### Bug Fixes
+
+* **enums:** Workaround angular compiler export issue https://github.com/angular/angular/issues/23759 ([38d25fa](https://github.com/ui-router/core/commit/38d25fa))
+
+## 1.0.16 (2018-05-03)
+[Compare `@uirouter/angularjs` versions 1.0.15 and 1.0.16](https://github.com/angular-ui/ui-router/compare/1.0.15...1.0.16)
+
+### Bug Fixes
+
+* **docs:** downgrade to [@types](https://github.com/types)/angular[@1](https://github.com/1).6.25 to fix typings error when generating docs ([5850136](https://github.com/angular-ui/ui-router/commit/5850136))
+
+
+### Updated `@uirouter/core` from 5.0.17 to 5.0.18
+[Compare `@uirouter/core` versions 5.0.17 and 5.0.18](https://github.com/ui-router/core/compare/5.0.17...5.0.18)
+
+### Bug Fixes
+
+* **angular:** A hack to force the Angular compiler to import from module index ([d56a2be](https://github.com/ui-router/core/commit/d56a2be))
+* **StateRegistry:** Notify listeners of added states when there are orphans in the state queue ([5a9bac9](https://github.com/ui-router/core/commit/5a9bac9))
+* **transition:** Fix typing of Transition.params() ([ebea30e](https://github.com/ui-router/core/commit/ebea30e))
+* **transition:** Normalize `error()` to always return `Rejection` ([9bcc5db](https://github.com/ui-router/core/commit/9bcc5db))
+
 ## 1.0.15 (2018-02-12)
 [Compare `@uirouter/angularjs` versions 1.0.14 and 1.0.15](https://github.com/angular-ui/ui-router/compare/1.0.14...1.0.15)
 

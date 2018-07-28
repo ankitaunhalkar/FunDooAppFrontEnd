@@ -1,5 +1,5 @@
 /*!
- * ui-grid - v4.4.9 - 2018-04-30
+ * ui-grid - v4.6.2 - 2018-07-09
  * Copyright (c) 2018 ; License: MIT 
  */
 @media screen and (max-width: 767px) {
@@ -71,6 +71,9 @@
   background-color: transparent;
   border: none;
   padding: 0;
+}
+.clickable {
+  cursor: pointer;
 }
 .ui-grid-top-panel-background {
   background-color: #f3f3f3;
@@ -262,7 +265,6 @@ input[type="text"].ui-grid-filter-input {
   box-sizing: border-box;
   padding: 0 18px 0 0;
   margin: 0;
-  border: 0;
   width: 100%;
   border: 1px solid #d4d4d4;
   -webkit-border-top-right-radius: 0px;
@@ -358,6 +360,11 @@ select.ui-grid-filter-select:hover {
 .ui-grid-row:last-child .ui-grid-cell {
   border-bottom-color: #d4d4d4;
   border-bottom-style: solid;
+}
+.ui-grid-row:hover > [ui-grid-row] > .ui-grid-cell:hover .ui-grid-cell,
+.ui-grid-row:nth-child(odd):hover .ui-grid-cell,
+.ui-grid-row:nth-child(even):hover .ui-grid-cell {
+  background-color: #d5eaee;
 }
 .ui-grid-no-row-overlay {
   position: absolute;
@@ -563,24 +570,28 @@ select.ui-grid-filter-select:hover {
   list-style-type: none;
 }
 .ui-grid-menu .ui-grid-menu-inner ul li {
-  padding: 0px;
+  padding: 0;
 }
-.ui-grid-menu .ui-grid-menu-inner ul li button {
+.ui-grid-menu .ui-grid-menu-inner ul li .ui-grid-menu-item {
   color: #000;
   min-width: 100%;
   padding: 8px;
   text-align: left;
   background: transparent;
   border: none;
+  cursor: default;
 }
-.ui-grid-menu .ui-grid-menu-inner ul li button:hover,
-.ui-grid-menu .ui-grid-menu-inner ul li button:focus {
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item {
+  cursor: pointer;
+}
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item:hover,
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item:focus {
   background-color: #b3c4c7;
 }
-.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item.ui-grid-menu-item-active {
   background-color: #9cb2b6;
 }
-.ui-grid-menu .ui-grid-menu-inner ul li:not(:last-child) > button {
+.ui-grid-menu .ui-grid-menu-inner ul li:not(:last-child) > .ui-grid-menu-item {
   border-bottom: 1px solid #d4d4d4;
 }
 .ui-grid-sortarrow {
@@ -600,8 +611,8 @@ select.ui-grid-filter-select:hover {
 }
 @font-face {
   font-family: 'ui-grid';
-  src: url('ui-grid.eot');
-  src: url('ui-grid.eot#iefix') format('embedded-opentype'), url('ui-grid.woff') format('woff'), url('ui-grid.ttf') format('truetype'), url('ui-grid.svg?#ui-grid') format('svg');
+  src: url('fonts/ui-grid.eot');
+  src: url('fonts/ui-grid.eot#iefix') format('embedded-opentype'), url('fonts/ui-grid.woff') format('woff'), url('fonts/ui-grid.ttf') format('truetype'), url('fonts/ui-grid.svg?#ui-grid') format('svg');
   font-weight: normal;
   font-style: normal;
 }

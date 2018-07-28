@@ -1,5 +1,64 @@
-<md-sidenav md-component-id="left" md-disable-backdrop="" class="md-sidenav-left" >
-<md-content>
-    hello
-</md-content>
+<md-sidenav class="md-sidenav-left" md-component-id='left' md-disable-backdrop id="sidebar">
+
+  <section class="section">
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/notes.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Notes </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/reminders.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Reminders </span></a>
+    </div>
+  </section>
+
+  <hr style="opacity:0.2">
+
+  <section class="section">
+    <div class="div-section">
+      <span class="sidebarLabelFont"> Labels </span>
+      <span> <md-button id = "editButton">Edit</md-button></span>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-add-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Create New Label </span></a>
+    </div>
+  </section>
+
+  <hr style="opacity:0.2">
+
+  <section class="section">
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-archive-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Archive </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/trash.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Trash </span></a>
+    </div>
+  </section>
+
+  <hr style="opacity:0.2">
+
+  <section class="section">
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-settings-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Settings </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-feedback-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Send Feedback </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-help-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Help </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/apps_download.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> App Downloads </span></a>
+    </div>
+    <div class="div-section">
+      <a class="link" ui-sref="home"><img src="assets/images/round-keyboard-24px.svg" class="sidebarIcon" />
+      <span class="sidebarFont"> Keyboard Shortcuts </span></a>
+    </div>
+  </section>
 </md-sidenav>

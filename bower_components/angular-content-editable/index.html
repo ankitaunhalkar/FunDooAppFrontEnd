@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-strict-di>
+<head>
+  <meta charset="utf-8">
+  <title>AngularJs Content Editable - codekraft studio</title>
+  <meta name="author" content="codekraft-studio">
+  <meta name="description" content="The passion for the code and opensource guides us in what we do.">
+  <meta name="Robots" content="ALL,INDEX">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta property="og:title" content="Codekraft Studio, coding for fun and profit." />
+  <meta property="og:description" content="The passion for the code and opensource guides us in what we do." />
+  <meta property="og:image" content="https://avatars2.githubusercontent.com/u/12395152" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.codekraft.it/" />
+  <meta property="og:site_name" content="Codekraft Studio, coding for fun and profit." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Codekraft Studio, coding for fun and profit." />
+  <meta name="twitter:description" content="The passion for the code and opensource guides us in what we do." />
+  <meta name="twitter:image" content="https://avatars2.githubusercontent.com/u/12395152" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+</head>
+<body ng-cloak>
+  <article role="main" ng-controller="mainCtrl">
+    
+    <header>
+      <div class="container">
+        <h1>angular-content-editable</h1>
+        <h2>add the directive then click and edit what you want</h2>
+      </div>
+      <a href="https://github.com/codekraft-studio"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+    </header>
+    
+    <section class="container">
+      
+      <h3 ng-model="viewStrings.pageTitle" single-line="true" focus-select="false" content-editable>
+        Dis is a editablle mispelld header, correkt me.
+      </h3>
+
+      <p>
+        The header above is enabled with the directive <b>content-editable</b> and you can correct it by clicking.
+        <br>This is a normal non-editable paragraph instead. All the other paragraphs, but it can be anything, can be edited
+        <br>simply by clicking on it.
+      </p>
+      
+      <p ng-model="viewStrings.classParagraph" focus-select="false" content-editable>
+        All the elements with the directive will get the <b>content-editable</b> class by default, you can specify your own class with the <b>editable-class</b> attribute.
+        <br>In this example the class change the background color on hover, to easier understand which is editable and which is not.
+      </p>
+      
+      <p ng-model="viewStrings.firstParagraph" focus-select="true" content-editable>
+        This paragraph has the <b>focus-select</b> attribute, this means when you focus or click on it, it will auto select all text inside.
+        <br>So, you can easily edit it by clicking it and pressing <kbd>Backspace</kbd> to erase all text selected.
+        <br>And remember, if <b>you made a mess</b> and you want to <b>undo the changes</b> simply press <kbd>Esc</kbd> and rollback to previous value.
+      </p>
+  
+      <p ng-model="viewStrings.secondParagraph" focus-select="false" render-html="true" content-editable>
+        This element is enabled with the <b>render-html</b> attribute that allow to modify the html code of the content.
+        Try <i>clicking somewhere</i> and you will see how it works!
+      </p>
+      
+      <p ng-model="viewStrings.paragraphCallback" focus-select="false" single-line="true" edit-callback="exitCallback(text, elem)" content-editable>
+        If you specify a valid function inside a <b>edit callback</b> attribute every time your model change, the callback will run
+        <br>and you can make her doing all types of crazy things, like: <i>saving the data just changed with a ajax http request</i>, or <i>save the data in local storage</i> like in the example showed in this page
+      </p>
+      
+      <p ng-model="viewStrings.stripReplaceParagraph" focus-select="false" single-line="false" strip-replace="['html','<b>CHANGED to something else</b>','g']" content-editable>
+        If you specify array or simply "true" inside a <b>strip replace</b> attribute every time your model change,
+        <br>the text will be stripped of all html tags, in case of setting <b>strip replace</b> to "true".
+        <br>If you specify array, the array will be converted to regular expression and the text will be matched (and changed) to your parametters.
+      </p>
+      
+    </section>
+  </article>
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/b4dnewz/244a65f06e443152b33c1bbe6644b596/raw/a19533639c2c5bf26cc2cc5c62bf3d9afd3232ee/angular-local-storage.js"></script>
+<script type="text/javascript" src="./dist/angular-content-editable.min.js"></script>
+<script>
+
+angular.module('app', [
+  'angular-content-editable',
+  'ngStorage'
+])
+
+.config(['contentEditableProvider', function (contentEditableProvider) {
+  
+  contentEditableProvider.configure({
+    // some user conf
+  });
+  
+}])
+
+.controller('mainCtrl', ['$scope', '$localStorage', function($scope, $localStorage) {
+  
+  // get example strings
+  $scope.viewStrings = $localStorage.getObject('exampleStrings') || {};
+  
+  $scope.$watch('viewStrings', function(n) {
+    return $localStorage.setObject('exampleStrings', n)
+  }, true)
+  
+  $scope.exitCallback = function(text, elem) {
+    console.log(text, elem);
+    alert('callback here!');
+  }
+  
+}]);
+
+</script>
+</html>

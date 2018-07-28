@@ -19,10 +19,10 @@
 
       <md-input-container style="width: 100%">
         <label>Password:</label>
-        <input type="password" ng-model="password" name="password" id="password" ng-minlength="3" ng-maxlength="8" required>
+        <input type="password" ng-model="password" name="password" id="password" ng-minlength="3" ng-maxlength="10" required>
         <span ng-show="registerForm.$dirty && registerForm.password.$error.required" style="color: red; font-size: 12px">Password is a required</span>
         <span ng-show="registerForm.$dirty && registerForm.password.$error.minlength" style="color: red; font-size: 12px">Password should not be less than 3</span>
-        <span ng-show="registerForm.$dirty && registerForm.password.$error.maxlength" style="color: red; font-size: 12px">Password should not be greater than 8</span>
+        <span ng-show="registerForm.$dirty && registerForm.password.$error.maxlength" style="color: red; font-size: 12px">Password should not be greater than 10</span>
       </md-input-container>
 
       <md-input-container style="width: 100%">
