@@ -31,6 +31,7 @@
 
         read = function () {
           var html;
+          // html = element.html();
           html = element.html();
           html = parseHtml(html);
           ngModel.$setViewValue(html);

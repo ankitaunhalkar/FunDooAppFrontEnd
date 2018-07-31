@@ -1,5 +1,4 @@
 <html>
-
 <head>
 
   <link rel="icon" type="image/png" href="assets/images/keep-512.png" />
@@ -10,7 +9,7 @@
 
 </head>
 
-<body ng-app="fundooApp">
+<body ng-app="fundooApp" style="background:#e8e8e8; height: fit-content">
   <ui-view></ui-view>
 </body>
 <script src="bower_components/angular/angular.min.js"></script>
@@ -19,16 +18,18 @@
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-<!-- <script src="bower_components/ng-content-editable/dist/ng-content-editable.min.js"></script> -->
-<!-- <script src="bower_components/angular-content-editable/dist/angular-content-editable.min.js"></script> -->
+<script src="bower_components/ng-content-editable/dist/ng-content-editable.min.js"></script>
 <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
 <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
 
 <script src="app.js"></script>
 <script src="controller/userController.js"></script>
+<script src="controller/noteController.js"></script>
 <script src="service/userservices.js"></script>
 <script src="directive/toolbar.js"></script>
 <script src="directive/sidebar.js"></script>
 <script src="directive/notecreate.js"></script>
+<script src="directive/options.js"></script>
+<script src="directive/note.js"></script>
 
 </html>

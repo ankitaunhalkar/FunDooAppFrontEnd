@@ -23,5 +23,22 @@ api.putMthod = function (user, baseurl) {
     data : user
   });
 }
+
+api.postHeaderMethod = function (note, baseurl, header) {
+  return $http({
+    method : 'POST',
+    url : baseurl,
+    headers : header,
+    data : note
+  });
+}
+
+api.getHeaderMethod = function (baseurl, header) {
+  return $http({
+    method : 'GET',
+    url : baseurl,
+    headers : header,
+  });
+}
 return api;
 });

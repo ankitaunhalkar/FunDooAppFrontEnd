@@ -9,27 +9,147 @@
 }
 
 .noteFont {
-  box-sizing: border-box;
   font-family: 'Roboto Slab', 'Times New Roman', serif;
+  font-size: 18px;
   padding: 12px 15px 15px 15px;
-  opacity: 0.8;
+  opacity: 0.6;
+  width: 500px;
+  line-height: 1.4;
   white-space: pre-wrap;
   word-wrap: break-word;
-
 }
 
 div[contenteditable=true]:empty::before {
   content: attr(placeholder);
 }
 
-.listIcon {
-  padding-left: 350px;
-  margin-top: 10px;
+div[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+
+#listIcon {
+  margin-top: 3.5px;
   opacity: 0.5;
 }
 
-.photoIcon {
-  padding-left: 20px;
-  margin-top: 10px;
+#photoIcon {
+  margin-top: 3.5px;
+  margin-right: 15px;
   opacity: 0.5;
+}
+
+.createEditNote {
+  margin-top: -54px;
+  margin-left: 350px;
+}
+
+.createEditNoteCard {
+  width: 550px;
+}
+
+.titleFont {
+  font-family: 'Roboto Condensed', arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  width: 700px;
+  line-height: 22px;
+  padding: 12px 15px 15px 15px;
+  opacity: 0.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+#pinIcon {
+  margin-top: 2px;
+  opacity: 0.5;
+}
+
+.optionsIcon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+}
+
+.addIcon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.5;
+}
+
+.colorIcon {
+  width: 19px;
+  height: 19px;
+  opacity: 0.5;
+}
+
+.moreIcon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+#closeButton {
+  margin-left: 115px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 3px;
+}
+
+.noteCard {
+  word-wrap: break-word;
+}
+
+.noteCard:hover .options {
+  visibility: visible;
+}
+
+.options {
+  visibility: hidden;
+}
+
+.notesDiv {
+  margin-left: 280px;
+  margin-right: 200px;
+}
+
+.cardTitle {
+  font-family: 'Roboto Condensed', arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cardDescription {
+  font-family: 'Roboto Slab', 'Times New Roman', serif;
+  font-size: 16px;
+  padding: 12px 15px 15px 15px;
+}
+
+#remindNoteIcon {
+  margin-left: 0px;
+  margin-right: -5px;
+}
+
+#addNoteIcon {
+  margin-left: 0px;
+  margin-right: -5px;
+}
+
+#colorNoteOptions {
+  margin-left: 0px;
+  margin-right: -5px;
+}
+
+#imageNoteIcon {
+  margin-left: 0px;
+  margin-right: -5px;
+}
+
+#archiveNoteIcon {
+  margin-left: 0px;
+  margin-right: -5px;
+}
+
+#moreNoteIcon {
+  margin-left: 0px;
+  margin-right: -5px;
 }

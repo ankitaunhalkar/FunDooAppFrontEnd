@@ -1,4 +1,4 @@
-app.controller('userController', function($scope, $state, $mdSidenav, $location, UserService, $timeout) {
+app.controller('userController', function($scope, $state, $mdSidenav, $location, UserService) {
 
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
@@ -86,7 +86,6 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
   $scope.resetpassword = function() {
 
     var token = $location.search().token;
-    console.log("token", token);
     var password = $scope.password;
     var cpassword = $scope.cpassword;
     if (password === cpassword) {
@@ -112,6 +111,7 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
   //User Sign-Out
   $scope.signOut = function() {
     localStorage.removeItem('loginToken');
+    localStorage.removeItem('userData');
     $state.go('login');
   }
 
@@ -119,10 +119,10 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
   homePage();
 
   function homePage() {
-    if (localStorage.getItem("loginToken") === null) {
+    if ((localStorage.getItem("loginToken") === null) && (localStorage.getItem("userData") === null)) {
       $state.go('login');
     } else {
-      $scope.user = JSON.parse(localStorage.getItem("userData"));
+      $scope.user = JSON.parse(localStorage.getItem('userData'));
 
       $scope.showemail = $scope.user.email;
       $scope.showname = $scope.user.username;

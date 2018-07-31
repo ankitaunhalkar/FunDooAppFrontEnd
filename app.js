@@ -1,4 +1,4 @@
-var app = angular.module('fundooApp', ['ngMaterial', 'ui.router']);
+var app = angular.module('fundooApp', ['ngMaterial', 'ui.router','content-editable','angular.filter']);
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('register', {
@@ -33,9 +33,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     .state('home.dashboard',{
       url: '/dashboard',
-      templateUrl: 'templates/dashboard.html'
-      // controller: 'noteController'
-    });
+      templateUrl: 'templates/dashboard.html',
+      controller: 'noteController'
+    })
 
   $urlRouterProvider.otherwise('/login');
 

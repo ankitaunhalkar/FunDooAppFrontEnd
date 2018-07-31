@@ -1,0 +1,51 @@
+<div class='md-padding notesDiv' layout='row' layout-wrap>
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date'">
+    <md-card layout='column' class="noteCard">
+
+      <md-card-header>
+        <div class="cardTitle">{{note.title}}</div>
+      </md-card-header>
+
+      <md-card-content class="cardDescription">{{note.description}}</md-card-content>
+
+      <md-whiteframe>
+        <div class="options">
+        <md-button class="md-icon-button" id="remindNoteIcon">
+          <img src="assets/images/reminders.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Remind me</md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button"id="addNoteIcon">
+          <img src="assets/images/round-person_add-24px.svg" class="addIcon">
+          <md-tooltip id="tooltip">Collaborator</md-tooltip>
+        </md-button>
+
+        <md-button ng-model="color" class="md-icon-button" id="colorNoteOptions">
+          <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
+          <md-tooltip id="tooltip">Change color</md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" id="imageNoteIcon">
+          <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Add Image</md-tooltip>
+        </md-button>
+
+        <md-button ng-model="archive" class="md-icon-button" id="archiveNoteIcon">
+          <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Archive</md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" id="moreNoteIcon" onclick = "isMore = true">
+          <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+          <md-tooltip id="tooltip">More</md-tooltip>
+        </md-button>
+        </div>
+      </md-whiteframe>
+
+    </md-card>
+  </div>
+</div>
+
+<div ng-show = "isMore">
+
+</div>
