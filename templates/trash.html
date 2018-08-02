@@ -1,0 +1,36 @@
+<div class='md-padding notesDiv trash' layout='row' layout-wrap>
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
+    <md-card layout='column' class="noteCard">
+
+      <md-card-header>
+        <div class="cardTitle">{{note.title}}</div>
+      </md-card-header>
+
+      <md-card-content class="cardDescription">{{note.description}}</md-card-content>
+
+      <md-whiteframe>
+        <div class="options">
+          <md-menu>
+            <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
+              <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+              <md-tooltip id="tooltip">More</md-tooltip>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click = "deleteNote(note)">
+                  <div class="moreMenu"> Delete forever </div>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click = "restore(note)">
+                  <div class="moreMenu"> Restore </div>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div>
+      </md-whiteframe>
+
+    </md-card>
+  </div>
+</div>

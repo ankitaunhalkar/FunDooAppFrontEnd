@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/home',
       templateUrl: 'templates/home.html',
-      controller: 'userController'
+      controller: 'noteController'
     })
 
     .state('home.dashboard',{
@@ -37,6 +37,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'noteController'
     })
 
-  $urlRouterProvider.otherwise('/login');
+    .state('home.trash',{
+      url: '/trash',
+      templateUrl: 'templates/trash.html',
+      controller: 'noteController'
+    })
+
+    .state('home.archive',{
+      url: '/archive',
+      templateUrl: 'templates/archive.html',
+      controller: 'noteController'
+    })
+    $urlRouterProvider.otherwise('/register');
 
 });

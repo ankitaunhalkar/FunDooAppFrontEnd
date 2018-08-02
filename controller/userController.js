@@ -1,23 +1,9 @@
-app.controller('userController', function($scope, $state, $mdSidenav, $location, UserService) {
-
-  //Side Bar
-  $scope.toggleLeft = buildToggler('left');
-
-  function buildToggler(componentId) {
-    return function() {
-      $mdSidenav(componentId).toggle();
-    }
-  };
-
-  //Profile Account
-  $scope.isProfileVisible = false;
-  $scope.profile = function() {
-    $scope.isProfileVisible = $scope.isProfileVisible ? false : true;
-  }
+app.controller('userController', function($scope, $state, $location, UserService) {
 
   //Register Form
   $scope.register = function() {
-    $state.go('register');
+    console.log("register");
+   $state.go("register");
   }
 
   //Login
@@ -30,7 +16,7 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
 
     var url = "http://localhost:8080/fundoonotes/login";
 
-    UserService.postMethod($scope.userData, url).then(function successCallback(response) {
+    UserService.postMethod($scope.userData, url, null).then(function successCallback(response) {
 
       localStorage.setItem("loginToken", response.headers('Authorization'));
       localStorage.setItem("userData", JSON.stringify(response.data));
@@ -54,7 +40,7 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
 
     var url = "http://localhost:8080/fundoonotes/register";
 
-    UserService.postMethod($scope.userData, url).then(function successCallback(response) {
+    UserService.postMethod($scope.userData, url, null).then(function successCallback(response) {
 
       console.log("Success", response);
       $state.go('login');
@@ -72,7 +58,7 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
 
     var url = "http://localhost:8080/fundoonotes/forgotpassword";
 
-    UserService.postMethod($scope.userData, url).then(function successCallback(response) {
+    UserService.postMethod($scope.userData, url, null).then(function successCallback(response) {
 
       console.log("Success", response);
       //  $state.go('resetpassword');
@@ -95,7 +81,7 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
       }
       var url = "http://localhost:8080/fundoonotes/changepassword/" + token;
 
-      UserService.putMthod($scope.userData, url).then(function successCallback(response) {
+      UserService.putMethod($scope.userData, url, null).then(function successCallback(response) {
         console.log("Success", response);
         $state.go('login');
       }, function errorCallback(response) {
@@ -108,26 +94,4 @@ app.controller('userController', function($scope, $state, $mdSidenav, $location,
     }
   }
 
-  //User Sign-Out
-  $scope.signOut = function() {
-    localStorage.removeItem('loginToken');
-    localStorage.removeItem('userData');
-    $state.go('login');
-  }
-
-  //Default call for Home Page
-  homePage();
-
-  function homePage() {
-    if ((localStorage.getItem("loginToken") === null) && (localStorage.getItem("userData") === null)) {
-      $state.go('login');
-    } else {
-      $scope.user = JSON.parse(localStorage.getItem('userData'));
-
-      $scope.showemail = $scope.user.email;
-      $scope.showname = $scope.user.username;
-
-      $state.go('home.dashboard');
-    }
-  }
 });

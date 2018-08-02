@@ -1,5 +1,5 @@
-<div class='md-padding notesDiv' layout='row' layout-wrap>
-  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: ({trash:false} || {archive:false})">
+<div class='md-padding notesDiv archive' layout='row' layout-wrap>
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {archive:true}">
     <md-card layout='column' class="noteCard">
 
       <md-card-header>
@@ -30,8 +30,8 @@
             <md-tooltip id="tooltip">Add Image</md-tooltip>
           </md-button>
 
-          <md-button ng-model="archive" class="md-icon-button" id="archiveNoteIcon" ng-click = "isArchive(note)">
-            <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
+          <md-button ng-model="archive" class="md-icon-button" id="archiveNoteIcon">
+            <img src="assets/images/round-unarchive-24px.svg" class="optionsIcon">
             <md-tooltip id="tooltip">Archive</md-tooltip>
           </md-button>
 

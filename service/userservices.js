@@ -1,44 +1,39 @@
 app.factory('UserService',function ($http) {
 var api = {};
 
-api.postMethod = function (user, baseurl) {
+api.postMethod = function (user, baseurl, header) {
   return $http({
     method : 'POST',
     url : baseurl,
+    headers : header,
     data : user
   })
 };
 
-api.getMethod = function (baseurl) {
+api.getMethod = function (baseurl, header) {
   return $http({
     method : 'GET',
-    url : baseurl
+    url : baseurl,
+    headers : header
   });
 }
 
-api.putMthod = function (user, baseurl) {
+api.putMethod = function (user, baseurl, header) {
   return $http({
     method : 'PUT',
     url : baseurl,
+    headers : header,
     data : user
   });
 }
 
-api.postHeaderMethod = function (note, baseurl, header) {
+api.deleteMethod = function (baseurl, header) {
   return $http({
-    method : 'POST',
+    method : 'DELETE',
     url : baseurl,
-    headers : header,
-    data : note
+    headers : header
   });
 }
 
-api.getHeaderMethod = function (baseurl, header) {
-  return $http({
-    method : 'GET',
-    url : baseurl,
-    headers : header,
-  });
-}
 return api;
 });
