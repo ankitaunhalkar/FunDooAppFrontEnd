@@ -48,6 +48,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/archive.html',
       controller: 'noteController'
     })
-    $urlRouterProvider.otherwise('/register');
+    $urlRouterProvider.otherwise('/login');
 
 });

@@ -1,10 +1,11 @@
-app.controller('noteController', function($scope, $mdSidenav, $state, UserService) {
+app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog, UserService) {
 
   //Default check
   homePage();
 
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
+
   function buildToggler(componentId) {
     return function() {
       $mdSidenav(componentId).toggle();
@@ -38,20 +39,68 @@ app.controller('noteController', function($scope, $mdSidenav, $state, UserServic
   }
 
   //Restore
-  $scope.restore = function (note) {
+  $scope.isRestore = function(note) {
     note.trash = false;
     $scope.updateNote(note);
   }
 
   //Archive
-  $scope.isArchive = function (note) {
-    console.log(note);
+  $scope.isArchive = function(note) {
     note.archive = true;
     note.pin = false;
     $scope.updateNote(note);
-    console.log(note);
   }
 
+  //unarchive
+  $scope.isUnarchive = function(note) {
+    note.archive = false;
+    $scope.updateNote(note);
+  }
+
+  //Update dialog box
+  $scope.showDialog = function(ev, note) {
+    $mdDialog.show({
+      locals: {
+        updateNote: note,
+        update: $scope.updateNote,
+        archive: $scope.isArchive,
+        trash: $scope.isTrash
+      },
+      controller: UpdateController,
+      templateUrl: 'templates/updatedialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+//dailog's controller
+  function UpdateController(updateNote, update, archive, trash, $scope) {
+    $scope.newTitle = updateNote.title;
+    $scope.newDescription = updateNote.description;
+
+    $scope.close = function() {
+      updateNote.title = $scope.newTitle;
+      updateNote.description = $scope.newDescription;
+      update(updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.more = function($mdMenu) {
+      $scope.openMoreMenu($mdMenu, ev);
+    }
+
+    $scope.archive = function() {
+      archive(updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.trash = function() {
+      trash(updateNote);
+      $mdDialog.hide();
+    }
+  }
+  
   //To Get Notes
   $scope.notes = [];
 
@@ -65,8 +114,6 @@ app.controller('noteController', function($scope, $mdSidenav, $state, UserServic
 
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
-      console.log($scope.notes);
-      console.log("Success");
     }, function errorCallback(response) {
       console.log("Error");
     });
@@ -115,7 +162,8 @@ app.controller('noteController', function($scope, $mdSidenav, $state, UserServic
   }
 
   //Update Note
-  $scope.updateNote = function (noteData) {
+  $scope.updateNote = function(noteData) {
+    console.log('called');
 
     var url = "http://localhost:8080/fundoonotes/updatenote";
 

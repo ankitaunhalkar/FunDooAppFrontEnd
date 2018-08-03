@@ -1,10 +1,10 @@
 app.controller('userController', function($scope, $state, $location, UserService) {
 
   //Register Form
-  $scope.register = function() {
-    console.log("register");
-   $state.go("register");
-  }
+  // $scope.register = function() {
+  //   console.log("register");
+  //  $state.go("register");
+  // }
 
   //Login
   $scope.login = function() {

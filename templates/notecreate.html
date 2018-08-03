@@ -32,6 +32,19 @@
 
     <div>
       <options></options>
+      <md-menu>
+        <md-button class="md-icon-button" ng-click="openMoreMenu($mdMenu, $event)">
+          <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+          <md-tooltip id="tooltip">More</md-tooltip>
+        </md-button>
+        <md-menu-content>
+          <md-menu-item>
+            <md-button class="moreMenu">
+              <div class="moreMenu"> Add Label </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
       <md-button class="md-button" id="closeButton" ng-click="isEditorVisible=false; createNote()">Close</md-button>
     </div>
   </md-card>

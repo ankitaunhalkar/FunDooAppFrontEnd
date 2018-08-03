@@ -1,10 +1,15 @@
 <div class='md-padding notesDiv' layout='row' layout-wrap>
-  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: ({trash:false} || {archive:false})">
-    <md-card layout='column' class="noteCard">
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:false} | filter: {archive:false}">
+    <md-card layout='column' class="noteCard" ng-click="showDialog($event,note)">
 
-      <md-card-header>
-        <div class="cardTitle">{{note.title}}</div>
-      </md-card-header>
+
+      <div class="cardTitle">{{note.title}}</div>
+        <md-button ng-model="pin" class="md-icon-button" id="pinNoteIcon">
+          <img src="assets/images/pin.svg">
+          <md-tooltip id="tooltip">Pin note</md-tooltip>
+        </md-button>
+
+
 
       <md-card-content class="cardDescription">{{note.description}}</md-card-content>
 
