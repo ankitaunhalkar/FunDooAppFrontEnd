@@ -57,50 +57,19 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
     $scope.updateNote(note);
   }
 
-  //Update dialog box
-  $scope.showDialog = function(ev, note) {
-    $mdDialog.show({
-      locals: {
-        updateNote: note,
-        update: $scope.updateNote,
-        archive: $scope.isArchive,
-        trash: $scope.isTrash
-      },
-      controller: UpdateController,
-      templateUrl: 'templates/updatedialog.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
+  //Pin
+  $scope.isPinned = false;
+  $scope.isPin = function(note) {
+    $scope.isPinned =  true;
+    note.pin = note.pin ? false : true;
+    note.archive = false;
+    if(note.pin == false)
+    {
+      $scope.isPinned = false;
+    }
+    $scope.updateNote(note);
   }
 
-//dailog's controller
-  function UpdateController(updateNote, update, archive, trash, $scope) {
-    $scope.newTitle = updateNote.title;
-    $scope.newDescription = updateNote.description;
-
-    $scope.close = function() {
-      updateNote.title = $scope.newTitle;
-      updateNote.description = $scope.newDescription;
-      update(updateNote);
-      $mdDialog.hide();
-    }
-
-    $scope.more = function($mdMenu) {
-      $scope.openMoreMenu($mdMenu, ev);
-    }
-
-    $scope.archive = function() {
-      archive(updateNote);
-      $mdDialog.hide();
-    }
-
-    $scope.trash = function() {
-      trash(updateNote);
-      $mdDialog.hide();
-    }
-  }
-  
   //To Get Notes
   $scope.notes = [];
 
@@ -163,8 +132,6 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
   //Update Note
   $scope.updateNote = function(noteData) {
-    console.log('called');
-
     var url = "http://localhost:8080/fundoonotes/updatenote";
 
     var token = {
@@ -188,7 +155,58 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
       $scope.user = JSON.parse(localStorage.getItem('userData'));
       $scope.showemail = $scope.user.email;
       $scope.showname = $scope.user.username;
+
       getnotes();
+    }
+  }
+
+  //Update dialog box
+  $scope.showDialog = function(ev, note) {
+    $mdDialog.show({
+      locals: {
+        updateNote: note,
+        update: $scope.updateNote,
+        archive: $scope.isArchive,
+        trash: $scope.isTrash,
+        pin : $scope.isPin
+      },
+      controller: UpdateController,
+      templateUrl: 'templates/updatedialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+  //dailog's controller
+  function UpdateController(updateNote, update, archive, trash, pin, $scope) {
+    $scope.newTitle = updateNote.title;
+    $scope.newDescription = updateNote.description;
+
+    $scope.close = function() {
+      updateNote.title = $scope.newTitle;
+      updateNote.description = $scope.newDescription;
+      update(updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.more = function($mdMenu) {
+      $scope.openMoreMenu($mdMenu, ev);
+    }
+
+    $scope.archive = function() {
+      archive(updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.trash = function() {
+      trash(updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.pin = function () {
+      pin(updateNote);
+      $mdDialog.hide();
     }
   }
 

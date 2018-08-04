@@ -2,17 +2,15 @@
   <md-dialog-content>
 
     <div layout="row">
-      <div ng-model="newTitle" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
-      <md-button ng-model="pin" class="md-icon-button" id="pinIcon">
+      <div ng-model="newTitle" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
+      <md-button class="md-icon-button" id="pinIcon" ng-click="pin()">
         <img src="assets/images/pin.svg">
         <md-tooltip id="tooltip">Pin note</md-tooltip>
       </md-button>
     </div>
 
     <div layout="row">
-      <div ng-model="newDescription" class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true">
-
-      </div>
+      <div ng-model="newDescription" placeholder="Note" class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true"></div>
     </div>
 
     <md-whiteframe flex-sm="45" flex-gt-sm="35" flex-gt-md="25">

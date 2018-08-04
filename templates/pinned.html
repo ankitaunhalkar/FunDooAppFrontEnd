@@ -1,16 +1,15 @@
-<div class='md-padding notesDiv archive' layout='row' layout-wrap>
-  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {archive:true}">
+<div class='md-padding notesDiv' layout='row' layout-wrap>
+  <div ng-show="isPinned" class="paddingLabel">Pinned</div>
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {pin:true} ">
     <md-card layout='column' class="noteCard" ng-click="showDialog($event,note)">
 
       <div class="pinNoteIcon">
-        <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
+        <md-button class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
           <img src="assets/images/pin.svg" ng-class="{'activePin': note.pin}">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
       </div>
-
-      <div class="cardTitle">{{note.title}}</div>
-
+        <div class="cardTitle">{{note.title}}</div>
 
       <md-card-content class="cardDescription">{{note.description}}</md-card-content>
 
@@ -36,9 +35,9 @@
             <md-tooltip id="tooltip">Add Image</md-tooltip>
           </md-button>
 
-          <md-button ng-model="archive" class="md-icon-button" id="archiveNoteIcon" ng-click="isUnarchive(note)">
-            <img src="assets/images/round-unarchive-24px.svg" class="optionsIcon">
-            <md-tooltip id="tooltip">Unarchive</md-tooltip>
+          <md-button class="md-icon-button" id="archiveNoteIcon" ng-click="isArchive(note)">
+            <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
+            <md-tooltip id="tooltip">Archive</md-tooltip>
           </md-button>
 
           <md-menu>
@@ -66,7 +65,6 @@
           </md-menu>
         </div>
       </md-whiteframe>
-
     </md-card>
   </div>
 </div>
