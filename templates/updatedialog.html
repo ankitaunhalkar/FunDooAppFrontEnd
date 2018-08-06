@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Note Update" style="background:{{color}}">
   <md-dialog-content>
 
     <div layout="row">
@@ -25,10 +25,20 @@
         <md-tooltip id="tooltip">Collaborator</md-tooltip>
       </md-button>
 
-      <md-button ng-model="color" class="md-icon-button">
-        <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
-        <md-tooltip id="tooltip">Change color</md-tooltip>
-      </md-button>
+      <md-menu>
+        <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
+          <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
+          <md-tooltip id="tooltip">Change color</md-tooltip>
+        </md-button>
+        <md-menu-content width="2" class="colorMenu">
+          <md-menu-item>
+            <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
+              <div ng-repeat="color in colorArray" class = "colorShape" style = "background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+              </div>
+            </div>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
 
       <md-button class="md-icon-button">
         <img src="assets/images/round-photo-24px.svg" class="optionsIcon">

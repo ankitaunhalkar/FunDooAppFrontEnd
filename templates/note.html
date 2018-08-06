@@ -1,18 +1,18 @@
 <div class='md-padding notesDiv' layout='row' layout-wrap>
-  <div ng-show="isPinned" class="othersLabel">Others</div>
+  <div ng-show="p.length" class="othersLabel">Others</div>
   <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:false} | filter: {archive:false} | filter: {pin:false}">
-    <md-card layout='column' class="noteCard" ng-click="showDialog($event,note)">
+    <md-card layout='column' class="noteCard" ng-click="showDialog($event,note)" style='background-color: {{note.color}}'>
 
       <div class="pinNoteIcon">
         <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
-          <img src="assets/images/pin.svg" ng-class="{'activePin': note.pin}">
+          <img src="assets/images/pin.svg">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
       </div>
 
       <div class="cardTitle">{{note.title}}</div>
 
-      <md-card-content class="cardDescription">{{note.description}}</md-card-content>
+      <md-card-content class="cardDescription" id="description">{{note.description}}</md-card-content>
 
       <md-whiteframe>
         <div class="options">
@@ -31,11 +31,12 @@
               <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
               <md-tooltip id="tooltip">Change color</md-tooltip>
             </md-button>
-            <md-menu-content>
+            <md-menu-content width="2" class="colorMenu">
               <md-menu-item>
-                <md-button class="md-icon-button">
-
-                </md-button>
+                <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
+                  <div ng-repeat="color in colorArray" class = "colorShape" style = "background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+                  </div>
+                </div>
               </md-menu-item>
             </md-menu-content>
           </md-menu>

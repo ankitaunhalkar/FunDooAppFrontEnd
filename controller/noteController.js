@@ -58,17 +58,52 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
   }
 
   //Pin
-  $scope.isPinned = false;
   $scope.isPin = function(note) {
-    $scope.isPinned =  true;
     note.pin = note.pin ? false : true;
     note.archive = false;
-    if(note.pin == false)
-    {
-      $scope.isPinned = false;
-    }
     $scope.updateNote(note);
   }
+
+  $scope.updateColor = function(note, color) {
+    note.color = color;
+    $scope.updateNote(note);
+  }
+
+  $scope.colors = [
+    [{
+        color: "#FFFF"
+      },
+      {
+        color: "#FF5252" //red
+      },
+      {
+        color: "#FFD740" //yellow
+      }
+    ],
+    [{
+        color: '#EEFF41' //lime
+
+      },
+      {
+        color: "pink"
+      },
+      {
+        color: "#FF9800" //orange
+      }
+    ],
+    [{
+        color: '#9E9E9E' //grey
+
+      },
+      {
+        color: "#BCAAA4" //brown
+      },
+      {
+        color: "#64FFDA" //teal
+      }
+    ]
+
+  ];
 
   //To Get Notes
   $scope.notes = [];
@@ -83,6 +118,8 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
+      document.getElementById('description').innerText = $scope.notes.description;
+
     }, function errorCallback(response) {
       console.log("Error");
     });
@@ -132,6 +169,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
   //Update Note
   $scope.updateNote = function(noteData) {
+    console.log(noteData+"updatenote");
     var url = "http://localhost:8080/fundoonotes/updatenote";
 
     var token = {
@@ -168,7 +206,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
         update: $scope.updateNote,
         archive: $scope.isArchive,
         trash: $scope.isTrash,
-        pin : $scope.isPin
+        pin: $scope.isPin
       },
       controller: UpdateController,
       templateUrl: 'templates/updatedialog.html',
@@ -182,6 +220,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
   function UpdateController(updateNote, update, archive, trash, pin, $scope) {
     $scope.newTitle = updateNote.title;
     $scope.newDescription = updateNote.description;
+    $scope.color = updateNote.color;
 
     $scope.close = function() {
       updateNote.title = $scope.newTitle;
@@ -204,7 +243,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
       $mdDialog.hide();
     }
 
-    $scope.pin = function () {
+    $scope.pin = function() {
       pin(updateNote);
       $mdDialog.hide();
     }

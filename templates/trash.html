@@ -1,6 +1,6 @@
 <div class='md-padding notesDiv trash' layout='row' layout-wrap>
   <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
-    <md-card layout='column' class="noteCard">
+    <md-card layout='column' class="noteCard" style="background-color:{{note.color}}">
 
       <md-card-header>
         <div class="cardTitle">{{note.title}}</div>

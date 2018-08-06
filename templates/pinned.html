@@ -1,11 +1,11 @@
 <div class='md-padding notesDiv' layout='row' layout-wrap>
-  <div ng-show="isPinned" class="paddingLabel">Pinned</div>
-  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {pin:true} ">
-    <md-card layout='column' class="noteCard" ng-click="showDialog($event,note)">
+  <div ng-show="p.length > 0" class="paddingLabel">Pinned</div>
+  <div flex="33" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {pin:true} as p ">
+    <md-card layout='column' class="noteCard" style="background-color: {{note.color}}" ng-click="showDialog($event,note)">
 
-      <div class="pinNoteIcon">
+      <div class="pinnedNoteIcon">
         <md-button class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
-          <img src="assets/images/pin.svg" ng-class="{'activePin': note.pin}">
+          <img src="assets/images/pinned.svg">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
       </div>
@@ -25,10 +25,20 @@
             <md-tooltip id="tooltip">Collaborator</md-tooltip>
           </md-button>
 
-          <md-button ng-model="color" class="md-icon-button" id="colorNoteOptions">
-            <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
-            <md-tooltip id="tooltip">Change color</md-tooltip>
-          </md-button>
+          <md-menu>
+            <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
+              <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
+              <md-tooltip id="tooltip">Change color</md-tooltip>
+            </md-button>
+            <md-menu-content width="2" class="colorMenu">
+              <md-menu-item>
+                <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
+                  <div ng-repeat="color in colorArray" class = "colorShape" style = "background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+                  </div>
+                </div>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
 
           <md-button class="md-icon-button" id="imageNoteIcon">
             <img src="assets/images/round-photo-24px.svg" class="optionsIcon">

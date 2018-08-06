@@ -60,23 +60,8 @@ div[contenteditable]:focus {
 }
 
 #pinIcon {
-  margin-top: 2px;
   opacity: 0.5;
-  position: fixed;
-  margin-left: 500px;
 }
-
-/* .noteCard {
-  word-wrap: break-word;
-}
-
-.noteCard:hover .options {
-  visibility: visible;
-}
-
-.options {
-  visibility: hidden;
-} */
 
 .optionsIcon {
   width: 18px;
@@ -136,10 +121,11 @@ div[contenteditable]:focus {
   visibility: hidden;
 }
 
-.activePin {
-  fill: blue;
+.pinnedNoteIcon {
+  height: 12;
+  margin-left: 200px;
+  margin-top: -5px;
 }
-
 .notesDiv {
   margin-left: 280px;
   margin-right: 200px;
@@ -217,4 +203,20 @@ div[contenteditable]:focus {
   font-size: 14px;
   font-weight: 500;
   margin-right: 500px;
+}
+
+.colorMenu {
+  overflow-y: hidden;
+  min-height: 85px;
+}
+
+.colorShape {
+  width: 25;
+  height: 25;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 1px solid lightgrey;
+  margin-bottom: 5px
 }
