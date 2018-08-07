@@ -1,6 +1,6 @@
 .createNote {
-  padding-top: 8%;
-  margin-left: 350px;
+    padding-top: 18%;
+    /* margin-left: 350px; */
 }
 
 .createNoteCard {
@@ -97,6 +97,7 @@ div[contenteditable]:focus {
 .noteCard {
   word-wrap: break-word;
   outline: transparent;
+  width: 240px;
 }
 
 .noteCard:hover .options {
@@ -126,9 +127,10 @@ div[contenteditable]:focus {
   margin-left: 200px;
   margin-top: -5px;
 }
+
 .notesDiv {
-  margin-left: 280px;
-  margin-right: 200px;
+  margin-left: 200px;
+  margin-right: 250px;
 }
 
 .cardTitle {
@@ -143,6 +145,8 @@ div[contenteditable]:focus {
   font-family: 'Roboto Slab', 'Times New Roman', serif;
   font-size: 16px;
   padding: 12px 15px 15px 15px;
+  word-wrap: break-word;
+  white-space: pre-wrap
 }
 
 #remindNoteIcon {

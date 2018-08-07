@@ -118,7 +118,8 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
-      document.getElementById('description').innerText = $scope.notes.description;
+      $scope.d =  response.data.description;
+
 
     }, function errorCallback(response) {
       console.log("Error");
@@ -146,6 +147,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
       UserService.postMethod($scope.noteData, url, token).then(function successCallback(response) {
         $scope.title = null;
         $scope.description = null;
+        // document.getElementById('description').innerText = response.data.description;
         getnotes();
       }, function errorCallback(response) {
         console.log("Error");
