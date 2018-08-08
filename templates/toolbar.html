@@ -19,7 +19,7 @@
       <md-tooltip id="tooltip">Refresh</md-tooltip>
     </md-button>
 
-    <md-button class="md-icon-button" id="viewListIcon">
+    <md-button class="md-icon-button" id="viewListIcon" ng-click="girdView()">
       <img src="assets/images/round-view_stream-24px.svg" />
       <md-tooltip id="tooltip"> List View </md-tooltip>
     </md-button>
@@ -40,6 +40,7 @@
     </md-button>
 </md-toolbar>
 
+<div style="z-index:1">
 <div ng-show="isProfileVisible" class="profile">
   <md-card class="profileCard">
     <div layout="row">
@@ -50,7 +51,7 @@
     <div>
         <md-button class="md-raised" id="signoutBtn" ng-click="signOut()">Sign out</md-button>
     </div>
-
+</div>
     <!-- <md-menu>
       <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
         <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">

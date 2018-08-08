@@ -210,12 +210,16 @@
 .profile {
   margin-top: 70px;
   float: right;
+  z-index: 1;
+  position: relative;
 }
 
 .profileCard {
-  margin-top: 0px;
+  /* margin-top: 0px;
   height: 160px;
-  width: 310px;
+  width: 310px; */
+  position: absolute;
+  right: 0;
 }
 
 .profileImg {

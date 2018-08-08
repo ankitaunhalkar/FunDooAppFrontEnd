@@ -1,38 +1,62 @@
-<md-whiteframe flex-sm="45" flex-gt-sm="35" flex-gt-md="25">
-
-  <md-button class="md-icon-button">
-    <img src="assets/images/reminders.svg" class="optionsIcon">
-    <md-tooltip id="tooltip">Remind me</md-tooltip>
-  </md-button>
-
-  <md-button class="md-icon-button">
-    <img src="assets/images/round-person_add-24px.svg" class="addIcon">
-    <md-tooltip id="tooltip">Collaborator</md-tooltip>
-  </md-button>
-
-  <md-menu>
-    <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
-      <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
-      <md-tooltip id="tooltip">Change color</md-tooltip>
+<div layout="row" layout-align="start-start">
+  <div class="options">
+    <md-button class="md-icon-button" id="remindNoteIcon">
+      <img src="assets/images/reminders.svg" class="optionsIcon">
+      <md-tooltip id="tooltip">Remind me</md-tooltip>
     </md-button>
-    <md-menu-content width="2" class="colorMenu">
-      <md-menu-item>
-        <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
-          <div ng-repeat="color in colorArray" class = "colorShape" style = "background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+
+
+    <md-button class="md-icon-button" id="addNoteIcon">
+      <img src="assets/images/round-person_add-24px.svg" class="addIcon">
+      <md-tooltip id="tooltip">Collaborator</md-tooltip>
+    </md-button>
+
+    <md-menu>
+      <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
+        <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
+        <md-tooltip id="tooltip">Change color</md-tooltip>
+      </md-button>
+      <md-menu-content width="2" class="colorMenu">
+        <md-menu-item>
+          <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
+            <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+            </div>
           </div>
-        </div>
-      </md-menu-item>
-    </md-menu-content>
-  </md-menu>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
 
-  <md-button class="md-icon-button">
-    <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
-    <md-tooltip id="tooltip">Add Image</md-tooltip>
-  </md-button>
+    <md-button class="md-icon-button" id="imageNoteIcon">
+      <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
+      <md-tooltip id="tooltip">Add Image</md-tooltip>
+    </md-button>
 
-  <md-button class="md-icon-button" ng-click="isArchive();">
-    <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
-    <md-tooltip id="tooltip">Archive</md-tooltip>
-  </md-button>
-
-</md-whiteframe>
+    <md-button ng-model="archive" id="archiveNoteIcon" class="md-icon-button" ng-click="isArchive(note)">
+      <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
+      <md-tooltip id="tooltip">Archive</md-tooltip>
+    </md-button>
+    <md-menu>
+      <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
+        <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+        <md-tooltip id="tooltip">More</md-tooltip>
+      </md-button>
+      <md-menu-content>
+        <md-menu-item>
+          <md-button ng-click="isTrash(note)">
+            <div class="moreMenu"> Delete Note </div>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="moreMenu">
+            <div class="moreMenu"> Add Label </div>
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="moreMenu">
+            <div class="moreMenu"> Make a copy </div>
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+</div>

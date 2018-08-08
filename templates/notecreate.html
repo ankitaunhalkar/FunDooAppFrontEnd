@@ -1,9 +1,8 @@
-<div class="createNote">
-  <md-card class="createNoteCard">
-    <div layout="row" ng-show="!isEditorVisible">
-
-      <div ng-model="Note" placeholder="Take a note..." class="noteFont" contenteditable="true" ng-click="isEditorVisible=true"></div>
-      <!-- <md-button class="md-icon-button" id="listIcon">
+<div layout="row" layout-align="start start" layout-wrap>
+  <div class="createNote" ng-show="!isEditorVisible">
+    <md-card class="createNoteCard">
+        <div ng-model="Note" placeholder="Take a note..." class="noteFont" contenteditable="true" ng-click="isEditorVisible=true"></div>
+        <!-- <md-button class="md-icon-button" id="listIcon">
         <img src="assets/images/round-view_list-24px.svg">
         <md-tooltip id="tooltip">New List</md-tooltip>
       </md-button>
@@ -12,40 +11,74 @@
         <img src="assets/images/round-photo-24px.svg">
         <md-tooltip id="tooltip">New note with image</md-tooltip>
       </md-button> -->
-    </div>
-  </md-card>
-</div>
+    </md-card>
+  </div>
 
-<div ng-show="isEditorVisible" class="createEditNote">
-  <md-card class="createEditNoteCard">
-    <div layout="row">
-      <div ng-model="title" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
-      <md-button ng-model="pin" class="md-icon-button" id="pinIcon">
-        <img src="assets/images/pin.svg">
-        <md-tooltip id="tooltip">Pin note</md-tooltip>
-      </md-button>
-    </div>
-
-    <div layout="row">
-      <div ng-model="description" placeholder="Take a note..." class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true"></div>
-    </div>
-
-    <div>
-      <options></options>
-      <md-menu>
-        <md-button class="md-icon-button" ng-click="openMoreMenu($mdMenu, $event)">
-          <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
-          <md-tooltip id="tooltip">More</md-tooltip>
+  <div ng-show="isEditorVisible" class="createEditNote">
+    <md-card class="createEditNoteCard">
+      <div layout="row" style="position:relative">
+        <div ng-model="title" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
+        <md-button ng-model="pin" class="md-icon-button" id="pinIcon">
+          <img src="assets/images/pin.svg">
+          <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
-        <md-menu-content>
-          <md-menu-item>
-            <md-button class="moreMenu">
-              <div class="moreMenu"> Add Label </div>
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <md-button class="md-button" id="closeButton" ng-click="isEditorVisible=false; createNote()">Close</md-button>
-    </div>
-  </md-card>
+      </div>
+
+      <div layout="row">
+        <div ng-model="description" placeholder="Take a note..." class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true"></div>
+      </div>
+
+      <div>
+        <md-button class="md-icon-button">
+          <img src="assets/images/reminders.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Remind me</md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button">
+          <img src="assets/images/round-person_add-24px.svg" class="addIcon">
+          <md-tooltip id="tooltip">Collaborator</md-tooltip>
+        </md-button>
+
+        <md-menu>
+          <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
+            <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
+            <md-tooltip id="tooltip">Change color</md-tooltip>
+          </md-button>
+          <md-menu-content width="2" class="colorMenu">
+            <md-menu-item>
+              <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
+                <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+                </div>
+              </div>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <md-button class="md-icon-button">
+          <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Add Image</md-tooltip>
+        </md-button>
+
+        <md-button class="md-icon-button" ng-click="isArchive();">
+          <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
+          <md-tooltip id="tooltip">Archive</md-tooltip>
+        </md-button>
+
+        <md-menu>
+          <md-button class="md-icon-button" ng-click="openMoreMenu($mdMenu, $event)">
+            <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+            <md-tooltip id="tooltip">More</md-tooltip>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button class="moreMenu">
+                <div class="moreMenu"> Add Label </div>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-button class="md-button" id="closeButton" ng-click="isEditorVisible=false; createNote()">Close</md-button>
+      </div>
+    </md-card>
+  </div>
 </div>

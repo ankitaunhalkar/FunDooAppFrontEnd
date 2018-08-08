@@ -1,6 +1,5 @@
 .createNote {
-    padding-top: 18%;
-    /* margin-left: 350px; */
+  margin-top: 18%;
 }
 
 .createNoteCard {
@@ -39,8 +38,7 @@ div[contenteditable]:focus {
 }
 
 .createEditNote {
-  margin-top: -54px;
-  margin-left: 350px;
+  margin-top: 18%;
 }
 
 .createEditNoteCard {
@@ -61,6 +59,8 @@ div[contenteditable]:focus {
 
 #pinIcon {
   opacity: 0.5;
+  position: absolute;
+  right: 0;
 }
 
 .optionsIcon {
@@ -94,10 +94,18 @@ div[contenteditable]:focus {
   border-radius: 3px;
 }
 
+.grid {
+  width: 240px;
+}
+
+.list {
+  width: 600px;
+}
+
 .noteCard {
   word-wrap: break-word;
   outline: transparent;
-  width: 240px;
+  position: relative;
 }
 
 .noteCard:hover .options {
@@ -110,22 +118,19 @@ div[contenteditable]:focus {
 
 .noteCard:hover .pinNoteIcon {
   opacity: 0.5;
-  height: 12;
-  margin-left: 200px;
-  margin-top: -5px;
   visibility: visible;
 }
 
 .pinNoteIcon {
-  height: 12;
-  margin-top: -5px;
+  width: fit-content;
+  right: 0;
+  position: absolute;
   visibility: hidden;
 }
 
 .pinnedNoteIcon {
-  height: 12;
-  margin-left: 200px;
-  margin-top: -5px;
+  position: absolute;
+  right: 0;
 }
 
 .notesDiv {
@@ -150,33 +155,33 @@ div[contenteditable]:focus {
 }
 
 #remindNoteIcon {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -2px;
+  padding: 0px;
 }
 
 #addNoteIcon {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -10px;
+  padding: 0px;
 }
 
 #colorNoteOptions {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -10px;
+  padding: 0px;
 }
 
 #imageNoteIcon {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -10px;
+  padding: 0px;
 }
 
 #archiveNoteIcon {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -10px;
+  padding: 0px;
 }
 
 #moreNoteIcon {
-  margin-left: 0px;
-  margin-right: -5px;
+  margin: 0px 2px 0px -10px;
+  padding: 0px;
 }
 
 .moreMenu {

@@ -2,16 +2,29 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
   //Default check
   homePage();
-
+  $scope.grid = "grid";
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
   function buildToggler(componentId) {
     return function() {
       $mdSidenav(componentId).toggle();
+      var isOpen = $mdSidenav(componentId).isOpen();
+      if (isOpen) {
+        document.getElementById('container').style.marginLeft = "400px"
+      } else {
+        document.getElementById('container').style.marginLeft = "200px"
+      }
     }
   };
 
+  //grid View
+  $scope.girdView = function() {
+
+    $scope.grid = "list";
+    console.log($scope.grid);
+
+  }
   //More menu
   $scope.openMoreMenu = function($mdMenu, ev) {
     $mdMenu.open(ev);
@@ -102,7 +115,6 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
         color: "#64FFDA" //teal
       }
     ]
-
   ];
 
   //To Get Notes
@@ -118,7 +130,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
-      $scope.d =  response.data.description;
+      $scope.d = response.data.description;
 
 
     }, function errorCallback(response) {
@@ -171,7 +183,7 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
 
   //Update Note
   $scope.updateNote = function(noteData) {
-    console.log(noteData+"updatenote");
+    console.log(noteData + "updatenote");
     var url = "http://localhost:8080/fundoonotes/updatenote";
 
     var token = {
