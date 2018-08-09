@@ -1,6 +1,6 @@
-  <div ng-show="p.length > 0" class="paddingLabel">Pinned</div>
-<div  layout="row" layout-align="start start" layout-wrap>
-  <div ng-class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {pin:true} as p ">
+<div ng-show="p.length > 0" class="paddingLabel">Pinned</div>
+<div class="notesDiv" layout="row" layout-align="start start" layout-wrap>
+  <div  ng-class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {pin:true} as p ">
     <md-card class="noteCard" style="background-color: {{note.color}}" ng-click="showDialog($event,note)">
 
       <div class="pinnedNoteIcon">

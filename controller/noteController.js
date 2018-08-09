@@ -1,8 +1,8 @@
-app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog, UserService) {
-
+app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, UserService) {
+  
   //Default check
   homePage();
-  $scope.grid = "grid";
+  $rootScope.grid = "grid";
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
@@ -11,20 +11,23 @@ app.controller('noteController', function($scope, $mdSidenav, $state, $mdDialog,
       $mdSidenav(componentId).toggle();
       var isOpen = $mdSidenav(componentId).isOpen();
       if (isOpen) {
-        document.getElementById('container').style.marginLeft = "400px"
-      } else {
         document.getElementById('container').style.marginLeft = "200px"
+      } else {
+        document.getElementById('container').style.marginLeft = "50px"
       }
     }
   };
 
   //grid View
   $scope.girdView = function() {
-
-    $scope.grid = "list";
-    console.log($scope.grid);
-
+    $rootScope.grid = "list";
   }
+
+  //list View
+  $scope.listView = function() {
+    $rootScope.grid = "grid";
+  }
+
   //More menu
   $scope.openMoreMenu = function($mdMenu, ev) {
     $mdMenu.open(ev);

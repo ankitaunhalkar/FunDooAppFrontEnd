@@ -127,6 +127,12 @@
   opacity: 0.5;
 }
 
+#gridListIcon {
+  margin-top: 12px;
+  margin-right: 24px;
+  opacity: 0.5;
+}
+
 #appsIcon {
   margin-top: 12px;
   opacity: 0.5;
@@ -208,7 +214,7 @@
 }
 
 .profile {
-  margin-top: 70px;
+  padding-top: 62px;
   float: right;
   z-index: 1;
   position: relative;

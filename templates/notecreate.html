@@ -1,4 +1,4 @@
-<div layout="row" layout-align="start start" layout-wrap>
+<div layout="row" layout-align="space-around" layout-wrap>
   <div class="createNote" ng-show="!isEditorVisible">
     <md-card class="createNoteCard">
         <div ng-model="Note" placeholder="Take a note..." class="noteFont" contenteditable="true" ng-click="isEditorVisible=true"></div>
@@ -40,7 +40,7 @@
         </md-button>
 
         <md-menu>
-          <md-button class="md-icon-button" id="colorNoteOptions" ng-click="openMoreMenu($mdMenu, $event)">
+          <md-button class="md-icon-button" ng-click="openMoreMenu($mdMenu, $event)">
             <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
             <md-tooltip id="tooltip">Change color</md-tooltip>
           </md-button>

@@ -1,8 +1,8 @@
 <div ng-show="p.length" class="othersLabel">Others</div>
-<div layout="row" layout-align="start start" layout-wrap>
+<div layout="row" class="notesDiv" layout-align="start start" layout-wrap>
+
   <div ng-class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:false} | filter: {archive:false} | filter: {pin:false}">
     <md-card class="noteCard" ng-click="showDialog($event,note)" style='background-color: {{note.color}}'>
-
       <div class="pinNoteIcon">
         <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
           <img src="assets/images/pin.svg">
@@ -15,7 +15,6 @@
       <md-card-content class="cardDescription" id="description">{{note.description}}</md-card-content>
 
       <options></options>
-
     </md-card>
   </div>
 </div>
