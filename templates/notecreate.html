@@ -15,11 +15,12 @@
   </div>
 
   <div ng-show="isEditorVisible" class="createEditNote">
-    <md-card class="createEditNoteCard">
+    <md-card class="createEditNoteCard" style="background-color: {{colored}}">
       <div layout="row" style="position:relative">
         <div ng-model="title" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
-        <md-button ng-model="pin" class="md-icon-button" id="pinIcon">
-          <img src="assets/images/pin.svg">
+        <md-button ng-click="isPin(note)" class="md-icon-button" id="pinIcon">
+          <img ng-if="!pin" src="assets/images/pin.svg">
+          <img ng-if="pin" src="assets/images/pinned.svg">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
       </div>
@@ -45,7 +46,7 @@
             <md-tooltip id="tooltip">Change color</md-tooltip>
           </md-button>
           <md-menu-content width="2" class="colorMenu">
-            <md-menu-item>
+            <md-menu-item >
               <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
                 <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
                 </div>
@@ -59,7 +60,7 @@
           <md-tooltip id="tooltip">Add Image</md-tooltip>
         </md-button>
 
-        <md-button class="md-icon-button" ng-click="isArchive();">
+        <md-button class="md-icon-button" ng-click="isArchive(note)">
           <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
           <md-tooltip id="tooltip">Archive</md-tooltip>
         </md-button>

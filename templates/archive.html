@@ -1,19 +1,19 @@
 <div id="container" layout="column"  layout-align="center center" layout-wrap>
 <div style="margin-top: 7%" layout="row" class="notesDiv" layout-align="start start" layout-wrap>
   <div class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {archive:true}">
-    <md-card class="noteCard" style="background-color:{{note.color}}" ng-click="showDialog($event,note)">
+    <md-card class="noteCard" style="background-color:{{note.color}}">
 
       <div class="pinNoteIcon">
-        <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note); $event.stopPropagation();">
+        <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note);">
           <img src="assets/images/pin.svg" ng-class="{'activePin': note.pin}">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
         </md-button>
       </div>
 
-      <div class="cardTitle">{{note.title}}</div>
+      <div  ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
 
-      <md-card-content class="cardDescription">{{note.description}}</md-card-content>
+      <md-card-content  ng-click="showDialog($event,note)" class="cardDescription">{{note.description}}</md-card-content>
 
       <md-whiteframe>
         <div class="options">

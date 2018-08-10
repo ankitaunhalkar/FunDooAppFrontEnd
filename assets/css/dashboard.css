@@ -18,10 +18,6 @@
   word-wrap: break-word;
 }
 
-/* .notesDiv {
-
-} */
-
 div[contenteditable=true]:empty::before {
   content: attr(placeholder);
 }
@@ -62,7 +58,7 @@ div[contenteditable]:focus {
 }
 
 #pinIcon {
-  opacity: 0.5;
+  opacity: 0.7;
   position: absolute;
   right: 0;
 }
@@ -109,7 +105,6 @@ div[contenteditable]:focus {
 
 .noteCard {
   word-wrap: break-word;
-  outline: transparent;
   position: relative;
 }
 
@@ -144,7 +139,7 @@ div[contenteditable]:focus {
 
 .notesDiv {
   width: 800px;
-  margin-top: 20px;
+  margin-top: 7px;
 }
 
 .cardTitle {
@@ -153,6 +148,7 @@ div[contenteditable]:focus {
   font-weight: bold;
   padding: 16px;
   width: 195px;
+  outline: transparent;
 }
 
 .cardDescription {
@@ -160,7 +156,8 @@ div[contenteditable]:focus {
   font-size: 16px;
   padding: 12px 15px 15px 15px;
   word-wrap: break-word;
-  white-space: pre-wrap
+  white-space: pre-wrap;
+  outline: transparent;
 }
 
 #remindNoteIcon {
@@ -239,4 +236,30 @@ div[contenteditable]:focus {
   margin-bottom: 5px;
   cursor: pointer;
   outline: transparent;
+}
+
+.demo-menu-example {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+  width: 256px;
+}
+
+.demo-menu-item {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  padding: 0 16px;
+  position: relative;
+  transition: background 0.15s linear;
+  width: auto;
+}
+
+.demo-menu-item:hover, .demo-menu-item:focus {
+  background-color: rgb(238, 238, 238);
+}
+
+.demo-menu-item.selected {
+  color: rgb(16, 108, 200);
 }

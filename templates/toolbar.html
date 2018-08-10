@@ -6,11 +6,11 @@
     <span class="todoFont"> TODO </span>
     <span class="notesFont"> Notes </span>
 
-    <div class="searchBox">
+    <div class="searchBox" ng-click="search()">
       <md-button class="md-icon-button">
         <img src="assets/images/round-search-24px.svg" id="searchIcon" />
       </md-button>
-      <input type="text" ng-model="search" name="search" placeholder="Search" class="searchInputBox">
+      <input type="text" placeholder="Search" class="searchInputBox">
       <md-tooltip id="tooltip">Search</md-tooltip>
     </div>
 
@@ -26,7 +26,7 @@
 
     <md-button ng-show="listview" class="md-icon-button" id="viewListIcon" ng-click="listView(); listview=false">
       <img src="assets/images/round-view_quilt-24px.svg" />
-      <md-tooltip id="tooltip"> List View </md-tooltip>
+      <md-tooltip id="tooltip"> Grid View </md-tooltip>
     </md-button>
 
     <!-- <md-button class="md-icon-button" id="appsIcon">
@@ -80,5 +80,60 @@
         </md-menu-item>
       </md-menu-content>
     </md-menu> -->
+  </md-card>
+</div>
+
+<md-toolbar ng-if="searchStatus" layout="row">
+  <md-button class="md-icon-button" id="menuicon" ng-click="goback()">
+    <img src="assets/images/round-arrow_back-24px.svg" />
+    <md-tooltip id="tooltip">Main-Menu</md-tooltip>
+  </md-button>
+  <span class="todoFont" style="color:white"> TODO </span>
+  <span class="notesFont" style="color:white"> Notes </span>
+
+  <div class="searchingBox">
+    <md-button class="md-icon-button">
+      <img src="assets/images/round-search-24px.svg" id="searchIcon" />
+    </md-button>
+    <input type="text" placeholder="Search" class="searchingInputBox">
+    <md-button class="md-icon-button cancelIcon">
+      <img src="assets/images/cancel.svg" id="searchIcon" />
+    </md-button>
+    <md-tooltip id="tooltip">Search</md-tooltip>
+  </div>
+
+  <md-button class="md-icon-button" id="refreshIcon">
+    <img src="assets/images/round-refresh-24px.svg" />
+    <md-tooltip id="tooltip">Refresh</md-tooltip>
+  </md-button>
+
+  <md-button class="md-icon-button" ng-show="!listview" id="gridListIcon" ng-click="girdView(); listview=true;">
+    <img src="assets/images/round-view_stream-24px.svg" />
+    <md-tooltip id="tooltip"> List View </md-tooltip>
+  </md-button>
+
+  <md-button ng-show="listview" class="md-icon-button" id="viewListIcon" ng-click="listView(); listview=false">
+    <img src="assets/images/round-view_quilt-24px.svg" />
+    <md-tooltip id="tooltip"> Grid View </md-tooltip>
+  </md-button>
+
+  <md-button class="md-icon-button" id="accountIcon" ng-click="profile()">
+    <img src="assets/images/round-account_circle-24px.svg" />
+    <md-tooltip id="tooltip">Account</md-tooltip>
+  </md-button>
+</md-toolbar>
+
+<div style="z-index:1">
+  <div ng-show="isProfileVisible" style="margin: 0px;" class="profile">
+    <md-card class="profileCard">
+      <div layout="row">
+        <img src="assets/images/user.png" class="profileImg" />
+        <span class="nameFont">{{showname}}</span>
+        <div class="emailFont">{{showemail}}</div>
+      </div>
+      <div>
+        <md-button class="md-raised" id="signoutBtn" ng-click="signOut()">Sign out</md-button>
+      </div>
+  </div>
   </md-card>
 </div>

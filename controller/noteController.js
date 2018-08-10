@@ -1,5 +1,5 @@
-app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, UserService) {
-  
+app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, UserService) {
+
   //Default check
   homePage();
   $rootScope.grid = "grid";
@@ -17,6 +17,16 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       }
     }
   };
+
+  $scope.goback = function () {
+    $scope.searchStatus = false;
+    $state.go('home.dashboard');
+  }
+
+  $scope.search = function () {
+    $scope.searchStatus = true;
+    $state.go('home.search');
+  }
 
   //grid View
   $scope.girdView = function() {
@@ -62,9 +72,14 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   //Archive
   $scope.isArchive = function(note) {
-    note.archive = true;
-    note.pin = false;
-    $scope.updateNote(note);
+    if (note == undefined) {
+      $scope.archive = true;
+      $scope.pin = false;
+    } else {
+      note.archive = true;
+      note.pin = false;
+      $scope.updateNote(note);
+    }
   }
 
   //unarchive
@@ -75,16 +90,28 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   //Pin
   $scope.isPin = function(note) {
-    note.pin = note.pin ? false : true;
-    note.archive = false;
-    $scope.updateNote(note);
+    if (note == undefined) {
+      $scope.pin = $scope.pin ? false : true;
+      $scope.archive = false;
+    } else {
+      note.pin = note.pin ? false : true;
+      note.archive = false;
+      $scope.updateNote(note);
+    }
   }
 
+  //Color
   $scope.updateColor = function(note, color) {
-    note.color = color;
-    $scope.updateNote(note);
+
+    if (note == undefined) {
+      $scope.colored = color;
+    } else {
+      note.color = color;
+      $scope.updateNote(note);
+    }
   }
 
+  //Color Array
   $scope.colors = [
     [{
         color: "#FFFF"
@@ -148,10 +175,12 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $scope.noteData = {
         title: $scope.title,
         description: $scope.description,
-        color: $scope.color,
+        color: $scope.colored,
         archive: $scope.archive,
         pin: $scope.pin
       };
+
+      console.log($scope.noteData.color);
 
       var url = "http://localhost:8080/fundoonotes/createnote";
 
@@ -162,11 +191,22 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       UserService.postMethod($scope.noteData, url, token).then(function successCallback(response) {
         $scope.title = null;
         $scope.description = null;
+        $scope.colored = "white";
+        $scope.pin = false;
+        $scope.archive = false;
+
         // document.getElementById('description').innerText = response.data.description;
         getnotes();
       }, function errorCallback(response) {
         console.log("Error");
       });
+    } else {
+      $scope.title = null;
+      $scope.description = null;
+      $scope.colored = "white";
+      $scope.pin = false;
+      $scope.archive = false;
+
     }
   }
 
@@ -203,6 +243,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
 
+  //Home Page method
   function homePage() {
     if ((localStorage.getItem("loginToken") === null) && (localStorage.getItem("userData") === null)) {
       $state.go('login');
@@ -265,5 +306,31 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $mdDialog.hide();
     }
   }
+
+  $scope.showMenu = function(ev) {
+  var position = $mdPanel.newPanelPosition()
+      .relativeTo('.demo-menu-open-button')
+      .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
+
+  var config = {
+    attachTo: angular.element(document.body),
+    controller: PanelMenuCtrl,
+    templateUrl: 'templates/reminder.html',
+    panelClass: 'demo-menu-example',
+    position: position,
+    openFrom: ev,
+    clickOutsideToClose: true,
+    escapeToClose: true,
+    focusOnOpen: false,
+    zIndex: 2
+  };
+
+  $mdPanel.open(config);
+};
+
+function PanelMenuCtrl() {
+
+}
+
 
 });

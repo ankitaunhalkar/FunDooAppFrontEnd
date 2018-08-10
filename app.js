@@ -25,6 +25,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'userController'
     })
 
+    .state('home.search',{
+      url: '/search',
+      templateUrl: 'templates/search.html',
+      controller: 'noteController'
+    })
+
     .state('home', {
       url: '/home',
       templateUrl: 'templates/home.html',
@@ -48,6 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/archive.html',
       controller: 'noteController'
     })
+
     $urlRouterProvider.otherwise('/login');
 
 });

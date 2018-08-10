@@ -101,6 +101,19 @@
   margin-right: 34px;
 }
 
+.searchingBox {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  width: 55%;
+  position: relative;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  margin-right: 34px;
+  background: white;
+}
+
+
 .searchInputBox {
   background: transparent;
   border: none;
@@ -112,6 +125,21 @@
   box-sizing: border-box;
 }
 
+.searchingInputBox {
+  background: transparent;
+  border: none;
+  font: normal 16px Roboto, sans-serif;
+  height: 40px;
+  outline: none;
+  width: 85%;
+  padding: 11px 16px 11px 16px;
+  box-sizing: border-box;
+}
+
+.cancelIcon {
+  position: absolute;
+    right: 0;
+}
 #searchIcon {
   opacity: 0.5;
 }
