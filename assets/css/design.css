@@ -64,7 +64,6 @@
 }
 
 #toolbar {
-  background-color: #fb0;
   position: fixed;
 }
 
@@ -113,7 +112,6 @@
   background: white;
 }
 
-
 .searchInputBox {
   background: transparent;
   border: none;
@@ -138,8 +136,14 @@
 
 .cancelIcon {
   position: absolute;
-    right: 0;
+  right: 0;
 }
+
+.searchDiv {
+  margin-top: 115px;
+  width: 800px;
+}
+
 #searchIcon {
   opacity: 0.5;
 }

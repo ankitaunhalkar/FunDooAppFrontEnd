@@ -1,6 +1,5 @@
 <div ng-show="p.length" class="othersLabel">Others</div>
-<div layout="row" class="notesDiv" layout-align="start start" layout-wrap>
-
+<div layout="row" layout-xs="column" class="notesDiv" layout-align="start start" layout-wrap>
   <div ng-class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:false} | filter: {archive:false} | filter: {pin:false}">
     <md-card class="noteCard" style='background-color: {{note.color}}'>
       <div class="pinNoteIcon">
@@ -12,8 +11,14 @@
 
       <div ng-if="note.title" ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
-      <md-card-content ng-click="showDialog($event,note)" class="cardDescription" id="description">{{note.description}}</md-card-content>
-
+      <md-card-content ng-if="note.description" ng-click="showDialog($event,note)" class="cardDescription" id="description">{{note.description}}</md-card-content>
+      <md-chips ng-if="note.reminder">
+            <md-chip style="font-size:12px">
+              <img src="assets/images/round-access_time-24px.svg" class="time-place-icon"></img>
+                {{note.reminder | date:shortDate}}
+                <img src="assets/images/cancel.svg" ng-click="removeReminder(note)"></img>
+            </md-chip>
+      </md-chips>
       <options></options>
     </md-card>
   </div>

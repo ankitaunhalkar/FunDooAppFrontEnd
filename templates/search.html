@@ -1,8 +1,8 @@
-<div ng-show="p.length" class="othersLabel">Others</div>
-<div layout="row" class="notesDiv" layout-align="start start" layout-wrap>
+<div id="container" layout="column"  layout-align="center center" layout-wrap>
 
-  <div ng-class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:false} | filter: {archive:false} | filter: {pin:false}">
-    <md-card class="noteCard" style='background-color: {{note.color}}'>
+<div layout="row" class="searchDiv" layout-align="start start" layout-wrap>
+  <div ng-class="grid" ng-repeat="note in notes | filter:searchText">
+    <md-card ng-if="searchText" class="noteCard" style='background-color: {{note.color}}'>
       <div class="pinNoteIcon">
         <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note);">
           <img src="assets/images/pin.svg">
@@ -17,4 +17,5 @@
       <options></options>
     </md-card>
   </div>
+</div>
 </div>

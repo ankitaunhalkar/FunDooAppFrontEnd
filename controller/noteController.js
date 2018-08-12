@@ -1,8 +1,51 @@
-app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, UserService) {
+app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $window, UserService) {
+
+  $rootScope.$state = $state;
+
+  $scope.toolbar = {
+    'background-color': '#fb0'
+  };
 
   //Default check
   homePage();
+  //Color Array
+  $scope.colors = [
+    [{
+        color: "#FFFF"
+      },
+      {
+        color: "#FF5252" //red
+      },
+      {
+        color: "#FFD740" //yellow
+      }
+    ],
+    [{
+        color: '#EEFF41' //lime
+
+      },
+      {
+        color: "pink"
+      },
+      {
+        color: "#FF9800" //orange
+      }
+    ],
+    [{
+        color: '#9E9E9E' //grey
+
+      },
+      {
+        color: "#BCAAA4" //brown
+      },
+      {
+        color: "#64FFDA" //teal
+      }
+    ]
+  ];
+
   $rootScope.grid = "grid";
+
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
@@ -18,14 +61,22 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   };
 
-  $scope.goback = function () {
-    $scope.searchStatus = false;
+  $scope.goback = function() {
+    $scope.toolbar = {
+      'background-color': '#fb0'
+    };
     $state.go('home.dashboard');
   }
 
-  $scope.search = function () {
-    $scope.searchStatus = true;
+  $scope.search = function() {
+    $scope.toolbar = {
+      'background-color': '#3e50b4'
+    };
     $state.go('home.search');
+  }
+
+  $scope.clear = function() {
+    $scope.searchText = null;
   }
 
   //grid View
@@ -111,42 +162,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
-  //Color Array
-  $scope.colors = [
-    [{
-        color: "#FFFF"
-      },
-      {
-        color: "#FF5252" //red
-      },
-      {
-        color: "#FFD740" //yellow
-      }
-    ],
-    [{
-        color: '#EEFF41' //lime
-
-      },
-      {
-        color: "pink"
-      },
-      {
-        color: "#FF9800" //orange
-      }
-    ],
-    [{
-        color: '#9E9E9E' //grey
-
-      },
-      {
-        color: "#BCAAA4" //brown
-      },
-      {
-        color: "#64FFDA" //teal
-      }
-    ]
-  ];
-
   //To Get Notes
   $scope.notes = [];
 
@@ -161,8 +176,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
       $scope.d = response.data.description;
-
-
     }, function errorCallback(response) {
       console.log("Error");
     });
@@ -177,7 +190,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         description: $scope.description,
         color: $scope.colored,
         archive: $scope.archive,
-        pin: $scope.pin
+        pin: $scope.pin,
+        reminder: $scope.reminder
       };
 
       console.log($scope.noteData.color);
@@ -236,6 +250,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     UserService.putMethod(noteData, url, token).then(function successCallback(response) {
       $scope.title = null;
       $scope.description = null;
+      console.log("success");
       getnotes();
     }, function errorCallback(response) {
       console.log("Error");
@@ -253,6 +268,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $scope.showname = $scope.user.username;
 
       getnotes();
+
     }
   }
 
@@ -307,30 +323,45 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
-  $scope.showMenu = function(ev) {
-  var position = $mdPanel.newPanelPosition()
-      .relativeTo('.demo-menu-open-button')
+  $scope.removeReminder = function (note) {
+    note.reminder = null;
+    updateNote(note);
+  }
+
+  $scope.showReminderMenu = function(ev, note) {
+    var position = $mdPanel.newPanelPosition()
+      .relativeTo(ev.target)
       .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
 
-  var config = {
-    attachTo: angular.element(document.body),
-    controller: PanelMenuCtrl,
-    templateUrl: 'templates/reminder.html',
-    panelClass: 'demo-menu-example',
-    position: position,
-    openFrom: ev,
-    clickOutsideToClose: true,
-    escapeToClose: true,
-    focusOnOpen: false,
-    zIndex: 2
+    var config = {
+      attachTo: angular.element(document.body),
+      controller: PanelMenuCtrl,
+      templateUrl: 'templates/reminder.html',
+      panelClass: 'reminder-menu',
+      locals: {
+        reminderNote: note,
+        update: $scope.updateNote
+      },
+      position: position,
+      openFrom: ev,
+      clickOutsideToClose: true,
+      escapeToClose: true,
+      focusOnOpen: false,
+      zIndex: 2
+    };
+
+    $mdPanel.open(config);
   };
 
-  $mdPanel.open(config);
-};
+  function PanelMenuCtrl(update, reminderNote, $scope) {
 
-function PanelMenuCtrl() {
+    $scope.save = function() {
+      reminderNote.reminder = $scope.date;
+      console.log(reminderNote.reminder);
+      update(reminderNote);
+    }
 
-}
+  }
 
 
 });

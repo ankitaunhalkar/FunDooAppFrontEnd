@@ -98,6 +98,10 @@ div[contenteditable]:focus {
   width: 240px;
 }
 
+.transition {
+  transition: transform .25s cubic-bezier(0.4, 0.0, 0.2, 1), visibility 0s linear .25s;
+}
+
 .list {
   margin-left: 100px;
   width: 600px;
@@ -140,6 +144,7 @@ div[contenteditable]:focus {
 .notesDiv {
   width: 800px;
   margin-top: 7px;
+  transition: background 0.15s linear;
 }
 
 .cardTitle {
@@ -193,6 +198,7 @@ div[contenteditable]:focus {
 .moreMenu {
   font-family: 'Roboto', arial, sans-serif;
   font-size: 13px;
+  transition: background 0.15s linear;
 }
 
 .trash {
@@ -221,6 +227,7 @@ div[contenteditable]:focus {
 }
 
 .colorMenu {
+  transition: background 0.15s linear;
   overflow-y: hidden;
   min-height: 85px;
 }
@@ -238,28 +245,68 @@ div[contenteditable]:focus {
   outline: transparent;
 }
 
-.demo-menu-example {
+.reminder-menu {
   background: white;
   border-radius: 4px;
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
   width: 256px;
 }
 
-.demo-menu-item {
-  align-items: center;
+.reminder-menu-text {
   cursor: pointer;
   display: flex;
-  height: 48px;
-  padding: 0 16px;
+  padding: 15px;
+  position: relative;
+  width: auto;
+  font-size: 14px;
+  font-family: 'Roboto', arial, sans-serif;
+  margin: 5px 0;
+}
+
+.reminder-menu-item {
+  cursor: pointer;
+  display: flex;
   position: relative;
   transition: background 0.15s linear;
   width: auto;
+  font-size: 13px;
+  border: 0;
+  padding: 10px 15px;
+  font-family: 'Roboto', arial, sans-serif;
+  margin: 5px 0;
+  outline: transparent;
 }
 
-.demo-menu-item:hover, .demo-menu-item:focus {
+.reminder-menu-item:hover, .reminder-menu-item:focus {
   background-color: rgb(238, 238, 238);
 }
 
-.demo-menu-item.selected {
-  color: rgb(16, 108, 200);
+.time-place-icon {
+  width: 15px;
+  height: 15px;
+  padding-right: 15px;
+  outline: transparent;
+}
+
+.back-reminder-icon {
+  width: 18px;
+  height: 18px;
+  padding-right: 15px;
+  outline: transparent;
+  opacity: 0.5;
+}
+
+.timing-text {
+  position: absolute;
+  right: 0;
+  padding-right: 15px;
+  opacity: 0.5;
+}
+
+.save {
+  text-transform: capitalize;
+  position: absolute;
+  right: 0;
+  top: -15px;
+  font-size: 14px;
 }

@@ -1,5 +1,5 @@
 <div id="container" layout="column"  layout-align="center center" layout-wrap>
-<div style="margin-top: 8%" layout="row" class="notesDiv" layout-align="start start" layout-wrap>  <div class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
+<div style="margin-top: 10%" layout="row" class="notesDiv" layout-align="start start" layout-wrap>  <div class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
     <md-card layout='column' class="noteCard" style="background-color:{{note.color}}">
 
       <md-card-header>

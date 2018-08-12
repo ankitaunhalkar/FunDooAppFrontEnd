@@ -1,0 +1,41 @@
+<div ng-show="!reminder">
+  <div class="reminder-menu-text">Reminder: </div>
+  <div class="reminder-menu-item">
+    Later Today
+    <span class="timing-text">8:00 PM</span>
+  </div>
+  <div class="reminder-menu-item">
+    Tomorrow
+    <span class="timing-text">8:00 AM</span>
+  </div>
+  <div class="reminder-menu-item">
+    Next Week
+    <span class="timing-text">Mon, 8:00 AM</span>
+  </div>
+  <div class="reminder-menu-item">Home</div>
+  <div class="reminder-menu-item" ng-click="reminder=true">
+    <img src="assets/images/round-access_time-24px.svg" class="time-place-icon"> Pick date & time
+  </div>
+  <div class="reminder-menu-item">
+    <img src="assets/images/round-place-24px.svg" class="time-place-icon"> Pick place
+  </div>
+</div>
+
+<div ng-show="reminder">
+  <div class="reminder-menu-text">
+    <img src="assets/images/round-arrow_back-24px.svg" class="back-reminder-icon" ng-click="reminder=false" /> Pick date & time
+  </div>
+  <md-divider></md-divider>
+  <div class="reminder-menu-text">
+    <md-datepicker ng-model="date" md-placeholder="Select date" md-open-on-focus></md-datepicker>
+  </div>
+  <!-- <div class="reminder-menu-text">
+    <md-input-container>
+      <input type="text" ng-pattern="/^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/)" required>
+    </md-input-container>
+  </div> -->
+  <div class="reminder-menu-text">
+    <md-button class="save" ng-click="save();">Save</md-button>
+  </div>
+</div>
+</div>
