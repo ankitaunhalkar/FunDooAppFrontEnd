@@ -1,7 +1,7 @@
 <div id="container" layout="column"  layout-align="center center" layout-wrap>
 
 <div layout="row" class="searchDiv" layout-align="start start" layout-wrap>
-  <div ng-class="grid" ng-repeat="note in notes | filter:searchText">
+  <div ng-class="grid" ng-repeat="note in notes | filter: searchText">
     <md-card ng-if="searchText" class="noteCard" style='background-color: {{note.color}}'>
       <div class="pinNoteIcon">
         <md-button ng-model="pin" class="md-icon-button" ng-click="isPin(note);">

@@ -67,6 +67,7 @@ div[contenteditable]:focus {
   width: 18px;
   height: 18px;
   opacity: 0.5;
+  outline: transparent;
 }
 
 .addIcon {
@@ -309,4 +310,68 @@ div[contenteditable]:focus {
   right: 0;
   top: -15px;
   font-size: 14px;
+}
+
+.reminder-chip:hover .cancel-chip-icon {
+  visibility: visible;
+}
+
+.time-chip-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  position: absolute;
+  left: 4px;
+  bottom: 7px;
+}
+
+.cancel-chip-icon {
+  width: 15px;
+  height: 15px;
+  opacity: 0.5;
+  position: absolute;
+  right: 5px;
+  bottom: 8px;
+  visibility: hidden;
+  outline: transparent;
+}
+
+.date-display {
+  font-family: 'Roboto', arial, sans-serif;
+  color: rgba(0, 0, 0, .87);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  margin: 0px 10px;
+  padding: 1px;
+}
+
+.time-select-box {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 14px;
+}
+
+input[type='file'].hidden {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 50px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.hiddenFileInputContainter
+{
+    position: relative;
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
 }

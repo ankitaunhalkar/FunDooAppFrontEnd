@@ -1,14 +1,14 @@
 <div ng-show="!reminder">
   <div class="reminder-menu-text">Reminder: </div>
-  <div class="reminder-menu-item">
+  <div class="reminder-menu-item" ng-click="today();">
     Later Today
     <span class="timing-text">8:00 PM</span>
   </div>
-  <div class="reminder-menu-item">
+  <div class="reminder-menu-item" ng-click="tomorrow();">
     Tomorrow
     <span class="timing-text">8:00 AM</span>
   </div>
-  <div class="reminder-menu-item">
+  <div class="reminder-menu-item" ng-click="week();">
     Next Week
     <span class="timing-text">Mon, 8:00 AM</span>
   </div>
@@ -27,15 +27,21 @@
   </div>
   <md-divider></md-divider>
   <div class="reminder-menu-text">
-    <md-datepicker ng-model="date" md-placeholder="Select date" md-open-on-focus></md-datepicker>
+    <md-datepicker md-min-date="todayDate" ng-model="date" md-placeholder="Select date" md-open-on-focus></md-datepicker>
   </div>
-  <!-- <div class="reminder-menu-text">
-    <md-input-container>
-      <input type="text" ng-pattern="/^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/)" required>
-    </md-input-container>
-  </div> -->
+  <div>
+    <md-select ng-model="time" placeholder="8:00 AM" class="md-no-underline time-select-box">
+      <md-option value="8:00 AM">Morning 8:00 AM</md-option>
+      <md-option value="1:00 PM">Afternoon 1:00 PM</md-option>
+      <md-option value="6:00 PM">Evening 6:00 PM</md-option>
+      <md-option value="8:00 PM">Night 8:00 PM</md-option>
+      <md-option value="">Custom</md-option>
+    </md-select>
+    <!-- <md-input-container class="time-select-box" style="width:80%" ng-show="time">
+      <input type="text" ng-model="customTime" placeholder="Enter Time" ng-pattern="/^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/" required></input>
+    </md-input-container> -->
+  </div>
   <div class="reminder-menu-text">
     <md-button class="save" ng-click="save();">Save</md-button>
   </div>
-</div>
 </div>

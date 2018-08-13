@@ -5,7 +5,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   $scope.toolbar = {
     'background-color': '#fb0'
   };
-
   //Default check
   homePage();
   //Color Array
@@ -323,9 +322,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
-  $scope.removeReminder = function (note) {
+  $scope.removeReminder = function(note) {
     note.reminder = null;
-    updateNote(note);
+    $scope.updateNote(note);
   }
 
   $scope.showReminderMenu = function(ev, note) {
@@ -353,14 +352,39 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $mdPanel.open(config);
   };
 
-  function PanelMenuCtrl(update, reminderNote, $scope) {
+  function PanelMenuCtrl(mdPanelRef, update, reminderNote, $scope) {
+
+    $scope.todayDate = new Date();
+
+    console.log($scope.time);
 
     $scope.save = function() {
       reminderNote.reminder = $scope.date;
-      console.log(reminderNote.reminder);
       update(reminderNote);
+      mdPanelRef && mdPanelRef.close();
     }
 
+    $scope.today = function() {
+      reminderNote.reminder = $scope.todayDate;
+      update(reminderNote);
+      mdPanelRef && mdPanelRef.close();
+    }
+
+    $scope.tomorrow = function() {
+      var currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 1);
+      reminderNote.reminder = currentDate;
+      update(reminderNote);
+      mdPanelRef && mdPanelRef.close();
+    }
+
+    $scope.week = function() {
+      var currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 7);
+      reminderNote.reminder = currentDate;
+      update(reminderNote);
+      mdPanelRef && mdPanelRef.close();
+    }
   }
 
 
