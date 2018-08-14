@@ -8,7 +8,7 @@
         <md-tooltip id="tooltip">Pin note</md-tooltip>
       </md-button>
     </div>
-
+  
     <div layout="row">
       <div ng-model="newDescription" placeholder="Note" class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true"></div>
     </div>
@@ -33,7 +33,7 @@
         <md-menu-content width="2" class="colorMenu">
           <md-menu-item>
             <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
-              <div ng-repeat="color in colorArray" class = "colorShape" style = "background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+              <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
               </div>
             </div>
           </md-menu-item>
@@ -50,30 +50,30 @@
         <md-tooltip id="tooltip">Archive</md-tooltip>
       </md-button>
 
-    <md-menu>
-      <md-button class="md-icon-button" id="moreNoteIcon" ng-click="more($mdMenu)">
-        <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
-        <md-tooltip id="tooltip">More</md-tooltip>
-      </md-button>
-      <md-menu-content>
-        <md-menu-item>
-          <md-button ng-click="trash()">
-            <div class="moreMenu"> Delete Note </div>
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button class="moreMenu">
-            <div class="moreMenu"> Add Label </div>
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button class="moreMenu">
-            <div class="moreMenu"> Make a copy </div>
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-  </md-whiteframe>
+      <md-menu>
+        <md-button class="md-icon-button" id="moreNoteIcon" ng-click="more($mdMenu)">
+          <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+          <md-tooltip id="tooltip">More</md-tooltip>
+        </md-button>
+        <md-menu-content>
+          <md-menu-item>
+            <md-button ng-click="trash()">
+              <div class="moreMenu"> Delete Note </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button class="moreMenu">
+              <div class="moreMenu"> Add Label </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button class="moreMenu">
+              <div class="moreMenu"> Make a copy </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-whiteframe>
 
     <md-button class="md-button" id="closeButton" ng-click="close()">Close</md-button>
 

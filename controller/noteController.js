@@ -2,6 +2,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   $rootScope.$state = $state;
 
+  //To Get Notes
+  $scope.notes = [];
+
   $scope.toolbar = {
     'background-color': '#fb0'
   };
@@ -60,6 +63,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   };
 
+  //Back to dashboard
   $scope.goback = function() {
     $scope.toolbar = {
       'background-color': '#fb0'
@@ -67,6 +71,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $state.go('home.dashboard');
   }
 
+  //To search state
   $scope.search = function() {
     $scope.toolbar = {
       'background-color': '#3e50b4'
@@ -74,6 +79,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $state.go('home.search');
   }
 
+  //to clear search text box
   $scope.clear = function() {
     $scope.searchText = null;
   }
@@ -160,9 +166,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $scope.updateNote(note);
     }
   }
-
-  //To Get Notes
-  $scope.notes = [];
 
   function getnotes() {
 
@@ -256,6 +259,19 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     });
   }
 
+  $scope.uploadFile = function(element, note) {
+    var file = element;
+    console.log(file.name);
+    var url = "http://localhost:8080/fundoonotes/uploadimage";
+
+    UserService.postImageMethod(url, file).then(function successCallback(response) {
+      console.log(note);
+      note.image = response.data.message;
+      $scope.updateNote(note);
+    }, function errorCallback(response) {
+      console.log("Error");
+    });
+  }
 
   //Home Page method
   function homePage() {

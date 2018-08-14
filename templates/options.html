@@ -28,7 +28,7 @@
 
     <md-button class="md-icon-button" id="imageNoteIcon">
       <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
-      <input type="file" name="file" class="hidden" accept="image/*">
+      <input type="file" name="file" class="hidden" valid-file upload="uploadFile(file,note)" ng-model="file" accept="image/*" >
       <md-tooltip id="tooltip">Add Image</md-tooltip>
     </md-button>
 

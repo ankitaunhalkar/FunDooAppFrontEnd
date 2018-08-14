@@ -9,6 +9,9 @@
         </md-button>
       </div>
 
+      <div ng-if="note.image">
+        <img ng-src="{{note.image}}" style="width:224;">
+      </div>
       <div ng-if="note.title" ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
       <md-card-content ng-if="note.description" ng-click="showDialog($event,note)" class="cardDescription" id="description">{{note.description}}</md-card-content>
