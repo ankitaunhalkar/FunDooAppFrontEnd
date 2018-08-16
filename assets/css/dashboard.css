@@ -43,6 +43,19 @@ div[contenteditable]:focus {
 
 .createEditNoteCard {
   width: 600px;
+  position: relative;
+}
+
+.add-image-div:hover #addImageDeleteIcon {
+  visibility: visible;
+}
+
+#addImageDeleteIcon {
+  opacity: 0.7;
+  position: absolute;
+  right: 0;
+  bottom: 155px;
+  visibility: hidden;
 }
 
 .titleFont {
@@ -57,10 +70,27 @@ div[contenteditable]:focus {
   word-wrap: break-word;
 }
 
+.note-dialog:hover #deleteIcon {
+  visibility: visible;
+}
+
 #pinIcon {
   opacity: 0.7;
   position: absolute;
   right: 0;
+  z-index: 1;
+}
+
+.image-div {
+  position: relative;
+}
+
+#deleteIcon {
+  opacity: 0.7;
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  visibility: hidden;
 }
 
 .optionsIcon {
@@ -355,23 +385,30 @@ div[contenteditable]:focus {
 }
 
 input[type='file'].hidden {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 50px;
-    cursor: pointer;
-    opacity: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 50px;
+  cursor: pointer;
+  opacity: 0;
 }
 
-.hiddenFileInputContainter
-{
-    position: relative;
-    display: inline-block;
-    width: 27px;
-    height: 27px;
-    overflow: hidden;
-    vertical-align: middle;
-    cursor: pointer;
+.hiddenFileInputContainter {
+  position: relative;
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  overflow: hidden;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.imageSize {
+  width: 224;
+}
+
+.imageBigSize {
+  width: 100%;
 }

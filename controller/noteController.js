@@ -47,7 +47,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   ];
 
   $rootScope.grid = "grid";
-
+  $rootScope.imageSize ="imageSize";
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
@@ -87,11 +87,13 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   //grid View
   $scope.girdView = function() {
     $rootScope.grid = "list";
+    $rootScope.imageSize = "imageBigSize";
   }
 
   //list View
   $scope.listView = function() {
     $rootScope.grid = "grid";
+    $rootScope.imageSize = "imageSize";
   }
 
   //More menu
@@ -186,17 +188,16 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   //Note Create
   $scope.createNote = function() {
 
-    if ($scope.title != undefined || $scope.description != undefined || $scope.title != null || $scope.description != null) {
+    if ($scope.title != undefined || $scope.description != undefined || $scope.title != null || $scope.description != null || $scope.imageshow != undefined) {
       $scope.noteData = {
         title: $scope.title,
         description: $scope.description,
         color: $scope.colored,
         archive: $scope.archive,
         pin: $scope.pin,
-        reminder: $scope.reminder
+        reminder: $scope.reminder,
+        image: $scope.imageshow
       };
-
-      console.log($scope.noteData.color);
 
       var url = "http://localhost:8080/fundoonotes/createnote";
 
@@ -210,6 +211,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         $scope.colored = "white";
         $scope.pin = false;
         $scope.archive = false;
+        $scope.imageshow = null;
 
         // document.getElementById('description').innerText = response.data.description;
         getnotes();
@@ -259,20 +261,32 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     });
   }
 
-  $scope.uploadFile = function(element, note) {
+  //Add Image
+  $scope.uploadImage = function(element, note) {
     var file = element;
     console.log(file.name);
     var url = "http://localhost:8080/fundoonotes/uploadimage";
 
     UserService.postImageMethod(url, file).then(function successCallback(response) {
-      console.log(note);
-      note.image = response.data.message;
-      $scope.updateNote(note);
+      if (note == undefined) {
+        $scope.imageshow = response.data.message;
+      } else {
+        note.image = response.data.message;
+        $scope.updateNote(note);
+      }
     }, function errorCallback(response) {
       console.log("Error");
     });
   }
 
+  $scope.deleteImage = function(note) {
+    if (note == undefined) {
+      $scope.imageshow = null;
+    } else {
+      note.image = null;
+      $scope.updateNote(note);
+    }
+  }
   //Home Page method
   function homePage() {
     if ((localStorage.getItem("loginToken") === null) && (localStorage.getItem("userData") === null)) {
@@ -287,6 +301,23 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
+  $scope.fullScreenImage = function(ev, note) {
+    $mdDialog.show({
+      locals: {
+        imageNote: note
+      },
+      controller: imageController,
+      templateUrl: 'templates/imagedialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+  function imageController(imageNote, $scope) {
+    $scope.image = imageNote.image
+  }
+
   //Update dialog box
   $scope.showDialog = function(ev, note) {
     $mdDialog.show({
@@ -295,9 +326,16 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         update: $scope.updateNote,
         archive: $scope.isArchive,
         trash: $scope.isTrash,
-        pin: $scope.isPin
+        pin: $scope.isPin,
+        updateImage: $scope.uploadImage,
+        colorMenu: $scope.openMoreMenu,
+        imageDelete: $scope.deleteImage,
+        colorChange: $scope.updateColor,
+        colorbox: $scope.colors,
+        fullScreen: $scope.fullScreenImage,
+        events: ev
       },
-      controller: UpdateController,
+      controller: updateController,
       templateUrl: 'templates/updatedialog.html',
       parent: angular.element(document.body),
       targetEvent: ev,
@@ -306,10 +344,12 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   //dailog's controller
-  function UpdateController(updateNote, update, archive, trash, pin, $scope) {
+  function updateController(updateNote, update, archive, trash, pin, events, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, $scope) {
     $scope.newTitle = updateNote.title;
     $scope.newDescription = updateNote.description;
     $scope.color = updateNote.color;
+    $scope.image = updateNote.image;
+    $scope.colors = colorbox;
 
     $scope.close = function() {
       updateNote.title = $scope.newTitle;
@@ -318,8 +358,12 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $mdDialog.hide();
     }
 
+    $scope.imagefullScreen = function () {
+      fullScreen(events,updateNote);
+    }
+
     $scope.more = function($mdMenu) {
-      $scope.openMoreMenu($mdMenu, ev);
+      $scope.openMoreMenu($mdMenu, events);
     }
 
     $scope.archive = function() {
@@ -336,6 +380,27 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       pin(updateNote);
       $mdDialog.hide();
     }
+
+    $scope.updateImage = function(file) {
+      updateImage(file, updateNote);
+      $mdDialog.hide();
+    }
+
+    $scope.colorMenu = function($mdMenu, $event) {
+      colorMenu($mdMenu, $event);
+    }
+
+    $scope.updateColor = function(color) {
+      $scope.color = color;
+      colorChange(updateNote, color);
+    }
+
+    $scope.deleteImage = function() {
+      updateNote.image = null;
+      $scope.image = null;
+      imageDelete(updateNote);
+    }
+
   }
 
   $scope.removeReminder = function(note) {
@@ -403,5 +468,17 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
+  $scope.labelDialog = function(ev) {
+    $mdDialog.show({
+      controller: labelController,
+      templateUrl: 'templates/labeldialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+  function labelController($scope) {
+  }
 
 });

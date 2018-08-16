@@ -1,14 +1,23 @@
-<md-dialog aria-label="Note Update" style="background:{{color}}">
+<md-dialog aria-label="Note Update" style="background:{{color}}; width:600px" class="note-dialog">
   <md-dialog-content>
+
+    <md-button class="md-icon-button" id="pinIcon" ng-click="pin()">
+      <img src="assets/images/pin.svg">
+      <md-tooltip id="tooltip">Pin note</md-tooltip>
+    </md-button>
+
+    <div ng-if="image" class="image-div">
+      <img ng-src="{{image}}" style="width: 100%" ng-click="imagefullScreen()">
+      <md-button class="md-icon-button" id="deleteIcon" ng-click="deleteImage()">
+        <img src="assets/images/round-delete-24px.svg">
+        <md-tooltip id="tooltip">Delete Image</md-tooltip>
+      </md-button>
+    </div>
 
     <div layout="row">
       <div ng-model="newTitle" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
-      <md-button class="md-icon-button" id="pinIcon" ng-click="pin()">
-        <img src="assets/images/pin.svg">
-        <md-tooltip id="tooltip">Pin note</md-tooltip>
-      </md-button>
     </div>
-  
+
     <div layout="row">
       <div ng-model="newDescription" placeholder="Note" class="noteFont" contenteditable="true" only-text="true" convert-new-lines="true"></div>
     </div>
@@ -26,22 +35,24 @@
       </md-button>
 
       <md-menu>
-        <md-button class="md-icon-button" ng-click="openMoreMenu($mdMenu, $event)">
+        <md-button class="md-icon-button" ng-click="colorMenu($mdMenu, $event)">
           <img src="assets/images/round-color_lens-24px.svg" class="colorIcon">
           <md-tooltip id="tooltip">Change color</md-tooltip>
         </md-button>
         <md-menu-content width="2" class="colorMenu">
           <md-menu-item>
             <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
-              <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+              <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(color.color)">
               </div>
             </div>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
 
+
       <md-button class="md-icon-button">
         <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
+        <input type="file" name="file" class="hidden" valid-file upload="updateImage(file)" ng-model="file" accept="image/*">
         <md-tooltip id="tooltip">Add Image</md-tooltip>
       </md-button>
 

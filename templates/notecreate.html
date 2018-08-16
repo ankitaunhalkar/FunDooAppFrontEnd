@@ -1,8 +1,8 @@
 <div layout="row" layout-align="space-around" layout-wrap>
   <div class="createNote" ng-show="!isEditorVisible">
     <md-card class="createNoteCard">
-        <div ng-model="Note" placeholder="Take a note..." class="noteFont" contenteditable="true" ng-click="isEditorVisible=true"></div>
-        <!-- <md-button class="md-icon-button" id="listIcon">
+      <div ng-model="Note" placeholder="Take a note..." class="noteFont" contenteditable="true" ng-click="isEditorVisible=true"></div>
+      <!-- <md-button class="md-icon-button" id="listIcon">
         <img src="assets/images/round-view_list-24px.svg">
         <md-tooltip id="tooltip">New List</md-tooltip>
       </md-button>
@@ -16,13 +16,27 @@
 
   <div ng-show="isEditorVisible" class="createEditNote">
     <md-card class="createEditNoteCard" style="background-color: {{colored}}">
-      <div layout="row" style="position:relative">
+
+      <md-button ng-click="isPin(note)" class="md-icon-button" id="pinIcon">
+        <img ng-if="!pin" src="assets/images/pin.svg">
+        <img ng-if="pin" src="assets/images/pinned.svg">
+        <md-tooltip id="tooltip">Pin note</md-tooltip>
+      </md-button>
+
+      <div ng-if="imageshow" class="add-image-div">
+        <img ng-src="{{imageshow}}" style="width: 100%">
+        <md-button class="md-icon-button" id="addImageDeleteIcon" ng-click="deleteImage()">
+          <img src="assets/images/round-delete-24px.svg">
+          <md-tooltip id="tooltip">Delete Image</md-tooltip>
+        </md-button>
+      </div>
+      <div layout="row" >
         <div ng-model="title" placeholder="Title" contenteditable="true" class="titleFont" only-text="true" convert-new-lines="true"></div>
-        <md-button ng-click="isPin(note)" class="md-icon-button" id="pinIcon">
+        <!-- <md-button ng-click="isPin(note)" class="md-icon-button" id="pinIcon">
           <img ng-if="!pin" src="assets/images/pin.svg">
           <img ng-if="pin" src="assets/images/pinned.svg">
           <md-tooltip id="tooltip">Pin note</md-tooltip>
-        </md-button>
+        </md-button> -->
       </div>
 
       <div layout="row">
@@ -46,7 +60,7 @@
             <md-tooltip id="tooltip">Change color</md-tooltip>
           </md-button>
           <md-menu-content width="2" class="colorMenu">
-            <md-menu-item >
+            <md-menu-item>
               <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
                 <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
                 </div>
@@ -57,6 +71,7 @@
 
         <md-button class="md-icon-button">
           <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
+          <input type="file" name="file" class="hidden" valid-file upload="uploadImage(file,note)" ng-model="file" accept="image/*">
           <md-tooltip id="tooltip">Add Image</md-tooltip>
         </md-button>
 
