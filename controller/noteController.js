@@ -5,9 +5,12 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   //To Get Notes
   $scope.notes = [];
 
+  $scope.labels = [];
+
   $scope.toolbar = {
     'background-color': '#fb0'
   };
+
   //Default check
   homePage();
   //Color Array
@@ -47,7 +50,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   ];
 
   $rootScope.grid = "grid";
-  $rootScope.imageSize ="imageSize";
+  $rootScope.imageSize = "imageSize";
   //Side Bar
   $scope.toggleLeft = buildToggler('left');
 
@@ -179,10 +182,26 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
     UserService.getMethod(url, token).then(function successCallback(response) {
       $scope.notes = response.data;
-      $scope.d = response.data.description;
+      // $scope.d = response.data.description;
     }, function errorCallback(response) {
       console.log("Error");
     });
+  }
+
+  function getlabels() {
+
+    var url = "http://localhost:8080/fundoonotes/getlabels";
+
+    var token = {
+      'Authorization': localStorage.getItem('loginToken')
+    };
+
+    UserService.getMethod(url, token).then(function successCallback(response) {
+      $scope.labels = response.data;
+    }, function errorCallback(response) {
+      console.log("Error");
+    });
+
   }
 
   //Note Create
@@ -244,7 +263,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   //Update Note
   $scope.updateNote = function(noteData) {
-    console.log(noteData + "updatenote");
     var url = "http://localhost:8080/fundoonotes/updatenote";
 
     var token = {
@@ -254,7 +272,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     UserService.putMethod(noteData, url, token).then(function successCallback(response) {
       $scope.title = null;
       $scope.description = null;
-      console.log("success");
       getnotes();
     }, function errorCallback(response) {
       console.log("Error");
@@ -297,6 +314,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $scope.showname = $scope.user.username;
 
       getnotes();
+      getlabels();
 
     }
   }
@@ -358,8 +376,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $mdDialog.hide();
     }
 
-    $scope.imagefullScreen = function () {
-      fullScreen(events,updateNote);
+    $scope.imagefullScreen = function() {
+      fullScreen(events, updateNote);
     }
 
     $scope.more = function($mdMenu) {
@@ -470,6 +488,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   $scope.labelDialog = function(ev) {
     $mdDialog.show({
+      // locals: {
+      //   allLabels: getlabels
+      // },
       controller: labelController,
       templateUrl: 'templates/labeldialog.html',
       parent: angular.element(document.body),
@@ -479,6 +500,78 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   function labelController($scope) {
-  }
+    $scope.editLable = label.labelname;
 
+    //Create Label
+    $scope.createLabel = function() {
+
+      $scope.labelName = {
+        labelname: $scope.addlabel
+      }
+
+      var url = "http://localhost:8080/fundoonotes/createlabel";
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.postMethod($scope.labelName, url, token).then(function successCallback(response) {
+        $scope.addlabel = null;
+        $scope.getlabels();
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
+
+    //Get Labels
+    $scope.getlabels = function() {
+
+      var url = "http://localhost:8080/fundoonotes/getlabels";
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.getMethod(url, token).then(function successCallback(response) {
+        $scope.labels = response.data;
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+
+    }
+
+    //Default call
+    $scope.getlabels();
+
+    //Delete Note
+    $scope.deleteLabel = function(label) {
+      var id = label.id;
+      var url = "http://localhost:8080/fundoonotes/deletelabel/" + id;
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+      UserService.deleteMethod(url, token).then(function successCallback(response) {
+        $scope.getlabels();
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
+
+    //Update Note
+    $scope.updateLabel = function(label) {
+
+      var url = "http://localhost:8080/fundoonotes/updatelabel";
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.putMethod(label, url, token).then(function successCallback(response) {
+        label.labelname = $scope.editLable;
+        $scope.getlabels();
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
+  }
 });

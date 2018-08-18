@@ -1,10 +1,26 @@
 <md-dialog aria-label="Label" class="labelDialog">
   <md-dialog-content>
-    <div class="edit-label">Edit Labels</div>
-    <div layout="row">
-      <img src="assets/images/cancel.svg" class="cancel-icon-label">
-        <input type="text" placeholder="Create new label" class="label-input">
-      <img src="assets/images/icons8-checkmark.svg" class="checkmark-icon-label">
-    </div>
+      <div class="edit-label">Edit Labels</div>
+      <div layout="row" style="margin-top: 20px;">
+        <img src="assets/images/cancel.svg" class="cancel-icon-label">
+        <input type="text" ng-model="addlabel" placeholder="Create new label" class="label-input">
+        <img src="assets/images/icons8-checkmark.svg" class="checkmark-icon-label"  ng-click="createLabel()" ;>
+      </div>
+      <div layout="row" style="margin-top: 20px;" ng-repeat="label in labels" ng-mouseover="open = true" ng-mouseleave="open = false">
+
+        <img src="assets/images/round-label-24px.svg" class="label-icon-label" ng-show="!open">
+
+        <img src="assets/images/round-delete-24px.svg" class="label-icon-label" ng-show="open" ng-click="deleteLabel(label)">
+
+         <div class="label-name" ng-show="!inputshow" ng-click="inputshow=true">{{label.labelname}}</div>
+
+         <input type="text" ng-model="editLable" class="label-input" ng-show="inputshow" ng-click="updateLabel(label)">
+
+         <img src="assets/images/round-edit-24px.svg" class="edit-label-icon" ng-show="!correctshow" ng-click="correctshow=true;">
+         <img src="assets/images/icons8-checkmark.svg" class="checkmark-icon-label" ng-show="correctshow" ng-click="updateLabel(label)" ;>
+
+      </div>
+      <md-divider style="margin-top: 25px; width: 100%;"></md-divider>
+      <md-button class="close-label">Close</md-button>
   </md-dialog-content>
 </md-dialog>
