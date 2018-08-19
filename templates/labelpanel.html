@@ -1,0 +1,15 @@
+<div class="label-menu">
+  <div class="label-title">Label note </div>
+  <div class="search-label">
+    <img src="assets/images/round-search-24px.svg" class="label-search-icon">
+    <input type="text" ng-model="searchText" placeholder="Enter label name" class="label-search-input">
+  </div>
+
+  <div class="labels-checkbox">
+    <div ng-repeat = "label in labelset">
+      <md-checkbox style="padding: 0px 10px 3px; margin-left: 14px;" ng-checked="" ng-click="">
+            <div class="label-name-menu">{{label.labelname}}</div>
+      </md-checkbox>
+    </div>
+  </div>
+</div>

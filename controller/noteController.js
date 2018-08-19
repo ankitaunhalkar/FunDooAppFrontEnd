@@ -16,35 +16,42 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   //Color Array
   $scope.colors = [
     [{
-        color: "#FFFF"
+        color: "#FFFF",
+        name: "white"
       },
       {
-        color: "#FF5252" //red
+        color: "#FF5252", //red
+        name: "white"
       },
       {
-        color: "#FFD740" //yellow
+        color: "#FFD740", //yellow
+        name: "yellow"
       }
     ],
     [{
-        color: '#EEFF41' //lime
-
+        color: '#EEFF41', //lime
+        name: "lime"
       },
       {
-        color: "pink"
+        color: "pink",
+        name: "pink"
       },
       {
-        color: "#FF9800" //orange
+        color: "#FF9800", //orange
+        name: "orange"
       }
     ],
     [{
-        color: '#9E9E9E' //grey
-
+        color: '#9E9E9E', //grey
+        name: "grey"
       },
       {
-        color: "#BCAAA4" //brown
+        color: "#BCAAA4", //brown
+        name: "brown"
       },
       {
-        color: "#64FFDA" //teal
+        color: "#64FFDA", //teal
+        name: "teal"
       }
     ]
   ];
@@ -488,9 +495,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
   $scope.labelDialog = function(ev) {
     $mdDialog.show({
-      // locals: {
-      //   allLabels: getlabels
-      // },
+      locals: {
+        dashboardlabels: getlabels
+      },
       controller: labelController,
       templateUrl: 'templates/labeldialog.html',
       parent: angular.element(document.body),
@@ -499,9 +506,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     });
   }
 
-  function labelController($scope) {
-    $scope.editLable = label.labelname;
-
+  function labelController(dashboardlabels, $scope) {
+    $scope.labels = [];
     //Create Label
     $scope.createLabel = function() {
 
@@ -518,6 +524,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       UserService.postMethod($scope.labelName, url, token).then(function successCallback(response) {
         $scope.addlabel = null;
         $scope.getlabels();
+        dashboardlabels();
       }, function errorCallback(response) {
         console.log("Error");
       });
@@ -552,6 +559,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       };
       UserService.deleteMethod(url, token).then(function successCallback(response) {
         $scope.getlabels();
+        dashboardlabels();
       }, function errorCallback(response) {
         console.log("Error");
       });
@@ -559,7 +567,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
     //Update Note
     $scope.updateLabel = function(label) {
-
       var url = "http://localhost:8080/fundoonotes/updatelabel";
 
       var token = {
@@ -567,11 +574,64 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       };
 
       UserService.putMethod(label, url, token).then(function successCallback(response) {
-        label.labelname = $scope.editLable;
         $scope.getlabels();
+        dashboardlabels();
       }, function errorCallback(response) {
         console.log("Error");
       });
     }
+
+    //clear input text
+    $scope.clear = function() {
+      $scope.addlabel = null;
+    }
+
+    $scope.close = function() {
+      $mdDialog.hide();
+    }
   }
+
+  $scope.showlabelMenu = function(ev) {
+    var position = $mdPanel.newPanelPosition()
+      .relativeTo(ev.target)
+      .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
+
+    var config = {
+      attachTo: angular.element(document.body),
+      controller: panelLenuCtrl,
+      templateUrl: 'templates/labelpanel.html',
+      panelClass: 'reminder-menu',
+      position: position,
+      openFrom: ev,
+      clickOutsideToClose: true,
+      escapeToClose: true,
+      focusOnOpen: false,
+      zIndex: 2
+    };
+
+    $mdPanel.open(config);
+  };
+
+  function panelLenuCtrl($scope) {
+    //Get Labels
+    $scope.getlabels = function() {
+
+      var url = "http://localhost:8080/fundoonotes/getlabels";
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.getMethod(url, token).then(function successCallback(response) {
+        $scope.labelset = response.data;
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+
+    }
+
+    //Default call
+    $scope.getlabels();
+  }
+
 });

@@ -18,7 +18,10 @@
       <md-menu-content width="2" class="colorMenu">
         <md-menu-item>
           <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
-            <div ng-repeat="color in colorArray" class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+            <div ng-repeat="color in colorArray">
+              <div class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
+                  <!-- <md-tooltip>{{color.name}}</md-tooltip> -->
+              </div>
             </div>
           </div>
         </md-menu-item>
@@ -48,7 +51,7 @@
         </md-menu-item>
         <md-menu-item>
           <md-button class="moreMenu">
-            <div class="moreMenu"> Add Label </div>
+            <div class="moreMenu" ng-click="showlabelMenu($event)"> Add Label </div>
           </md-button>
         </md-menu-item>
         <md-menu-item>

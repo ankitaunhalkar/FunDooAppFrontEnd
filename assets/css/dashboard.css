@@ -230,6 +230,7 @@ div[contenteditable]:focus {
   font-family: 'Roboto', arial, sans-serif;
   font-size: 13px;
   transition: background 0.15s linear;
+  outline: transparent;
 }
 
 .trash {
