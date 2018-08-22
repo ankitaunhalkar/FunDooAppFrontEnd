@@ -86,23 +86,23 @@
   font-size: 13px;
   padding-top: 11px;
   position: relative;
-  width: 225px;
+  width: auto;
 }
 
 .label-title {
   font-size: 14px;
-  padding: 0 12px;
+  padding: 0 15px;
 }
 
 .search-label {
-  padding: 8px 12px;
+  padding: 8px 15px;
 }
 
 .label-search-icon {
   width: 16px;
   height: 16px;
   position: absolute;
-  right: -15;
+  right: 15px;
   opacity: 0.5;
 }
 
@@ -119,4 +119,8 @@
   padding-top: 2px;
   vertical-align: top;
   word-wrap: break-word;
+}
+
+.md-chips{
+  box-shadow: 0 0px !important;
 }

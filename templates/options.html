@@ -20,7 +20,7 @@
           <div style="padding-left:0px;padding-right:0px; margin-left:4px;" ng-repeat="colorArray in colors">
             <div ng-repeat="color in colorArray">
               <div class="colorShape" style="background-color : {{color.color}};" ng-click="updateColor(note,color.color)">
-                  <!-- <md-tooltip>{{color.name}}</md-tooltip> -->
+                <!-- <md-tooltip>{{color.name}}</md-tooltip> -->
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
 
     <md-button class="md-icon-button" id="imageNoteIcon">
       <img src="assets/images/round-photo-24px.svg" class="optionsIcon">
-      <input type="file" name="file" class="hidden" valid-file upload="uploadImage(file,note)" ng-model="file" accept="image/*" >
+      <input type="file" name="file" class="hidden" valid-file upload="uploadImage(file,note)" ng-model="file" accept="image/*">
       <md-tooltip id="tooltip">Add Image</md-tooltip>
     </md-button>
 
@@ -38,28 +38,10 @@
       <img src="assets/images/round-archive-24px.svg" class="optionsIcon">
       <md-tooltip id="tooltip">Archive</md-tooltip>
     </md-button>
-    <md-menu>
-      <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
-        <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
-        <md-tooltip id="tooltip">More</md-tooltip>
-      </md-button>
-      <md-menu-content>
-        <md-menu-item>
-          <md-button ng-click="isTrash(note)">
-            <div class="moreMenu"> Delete Note </div>
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button class="moreMenu">
-            <div class="moreMenu" ng-click="showlabelMenu($event)"> Add Label </div>
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button class="moreMenu">
-            <div class="moreMenu"> Make a copy </div>
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+
+    <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMorePanelMenu($event, note)">
+      <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
+      <md-tooltip id="tooltip">More</md-tooltip>
+    </md-button>
   </div>
 </div>

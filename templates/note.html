@@ -16,13 +16,21 @@
       <div ng-if="note.title" ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
       <md-card-content ng-if="note.description" ng-click="showDialog($event,note)" class="cardDescription" id="description">{{note.description}}</md-card-content>
-      <md-chips  class="reminder-chip" ng-if="note.reminder">
-            <md-chip style="position: relative" >
-              <img src="assets/images/round-access_time-24px.svg" class="time-chip-icon">
-                <div class="date-display">{{note.reminder | date: "MMM dd, hh:mm a"}}</div>
-                <img src="assets/images/cancel.svg" class="cancel-chip-icon" ng-click="removeReminder(note)">
-            </md-chip>
-      </md-chips>
+      <div layout='row' layout-wrap>
+        <md-chips class="reminder-chip" ng-if="note.reminder">
+          <md-chip style="position: relative">
+            <img src="assets/images/round-access_time-24px.svg" class="time-chip-icon">
+            <div class="date-display">{{note.reminder | date: "MMM dd, hh:mm a"}}</div>
+            <img src="assets/images/cancel.svg" class="cancel-chip-icon" ng-click="removeReminder(note)">
+          </md-chip>
+        </md-chips>
+        <md-chips class="reminder-chip" ng-if="note.notelabel" ng-repeat="label in note.notelabel">
+          <md-chip style="position: relative">
+            <div class="date-display">{{label.labelName}}</div>
+            <img src="assets/images/cancel.svg" class="cancel-chip-icon" ng-click="removelabel(note, label)">
+          </md-chip>
+        </md-chips>
+      </div>
       <options></options>
     </md-card>
   </div>

@@ -25,15 +25,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'userController'
     })
 
-    .state('home.search',{
-      url: '/search',
-      templateUrl: 'templates/search.html',
-      controller: 'noteController'
-    })
-
     .state('home', {
       url: '/home',
       templateUrl: 'templates/home.html',
+      controller: 'noteController'
+    })
+
+    .state('home.search',{
+      url: '/search',
+      templateUrl: 'templates/search.html',
       controller: 'noteController'
     })
 
@@ -55,6 +55,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'noteController'
     })
 
+    .state('home.label', {
+      url: '/:label',
+      templateUrl: 'templates/label.html',
+      controller: 'noteController'
+    })
+
+    .state('home.reminder',{
+      url: '/reminder',
+      templateUrl: 'templates/reminders.html',
+      controller: 'noteController'
+    })
+    
     $urlRouterProvider.otherwise('/login');
 
 });

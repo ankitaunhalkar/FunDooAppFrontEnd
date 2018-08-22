@@ -67,7 +67,14 @@
 <div ng-show="isProfileVisible" style="margin: 0px;" class="profile">
   <md-card class="profileCard">
     <div layout="row">
-      <img src="assets/images/user.png" class="profileImg"/>
+      <div class="profile-pic">
+        <img ng-src="{{profilePicUrl || getInitials(showname)}}" alt="{{user.name.first}}">
+
+
+        <span >Change</span>
+
+      </div>
+      <!-- <img src="assets/images/user.png" class="profileImg"/> -->
       <span class="nameFont">{{showname}}</span>
       <div class="emailFont">{{showemail}}</div>
     </div>

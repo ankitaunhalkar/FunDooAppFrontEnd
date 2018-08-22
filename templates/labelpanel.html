@@ -1,4 +1,16 @@
-<div class="label-menu">
+<div ng-show="!labelbox" class="label-menu">
+  <div class="more-menu-item" ng-click="trash()">
+    Delete Note
+  </div>
+  <div class="more-menu-item" ng-click="labelbox=true">
+    Add Label
+  </div>
+  <div class="more-menu-item">
+    Make a copy
+  </div>
+</div>
+
+<div ng-show="labelbox" class="label-menu">
   <div class="label-title">Label note </div>
   <div class="search-label">
     <img src="assets/images/round-search-24px.svg" class="label-search-icon">
@@ -6,9 +18,9 @@
   </div>
 
   <div class="labels-checkbox">
-    <div ng-repeat = "label in labelset">
-      <md-checkbox style="padding: 0px 10px 3px; margin-left: 14px;" ng-checked="" ng-click="">
-            <div class="label-name-menu">{{label.labelname}}</div>
+    <div ng-repeat="label in labelset | filter : searchText">
+      <md-checkbox style="padding: 0px 10px 3px; margin-left: 15px;" ng-click="toggle(label, selected)" ng-checked="exists(label, selected)" >
+        <div class="label-name-menu">{{label.labelname}}</div>
       </md-checkbox>
     </div>
   </div>

@@ -1,14 +1,33 @@
-<div id="container" layout="column"  layout-align="center center" layout-wrap>
-<div style="margin-top: 10%" layout="row" class="notesDiv" layout-align="start start" layout-wrap>  <div class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
-    <md-card layout='column' class="noteCard" style="background-color:{{note.color}}">
+<div id="container" layout="column" layout-align="center center" layout-wrap>
+  <div style="margin-top: 10%" layout="row" class="notesDiv" layout-align="start start" layout-wrap>
+    <div class="grid" ng-repeat="note in notes | orderBy: '-modified_date' | filter: {trash:true}">
+      <md-card layout='column' class="noteCard" style="background-color:{{note.color}}">
 
-      <md-card-header>
-        <div class="cardTitle">{{note.title}}</div>
-      </md-card-header>
+        <div ng-if="note.image" style="outline:transparent" ng-click="showDialog($event,note)">
+          <img ng-src="{{note.image}}" ng-class="{{imageSize}}">
+        </div>
+        <!--
+        <md-card-header>
+          <div class="cardTitle">{{note.title}}</div>
+        </md-card-header> -->
+        <div ng-if="note.title" ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
-      <md-card-content class="cardDescription">{{note.description}}</md-card-content>
-
-      <md-whiteframe>
+        <md-card-content class="cardDescription">{{note.description}}</md-card-content>
+        <div layout='row' layout-wrap>
+          <md-chips class="reminder-chip" ng-if="note.reminder">
+            <md-chip style="position: relative">
+              <img src="assets/images/round-access_time-24px.svg" class="time-chip-icon">
+              <div class="date-display">{{note.reminder | date: "MMM dd, hh:mm a"}}</div>
+              <img src="assets/images/cancel.svg" class="cancel-chip-icon" ng-click="removeReminder(note)">
+            </md-chip>
+          </md-chips>
+          <md-chips class="reminder-chip" ng-if="note.notelabel" ng-repeat="label in note.notelabel">
+            <md-chip style="position: relative">
+              <div class="date-display">{{label.labelName}}</div>
+              <img src="assets/images/cancel.svg" class="cancel-chip-icon" ng-click="removelabel(note, label)">
+            </md-chip>
+          </md-chips>
+        </div>
         <div class="options">
           <md-menu>
             <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
@@ -17,21 +36,20 @@
             </md-button>
             <md-menu-content>
               <md-menu-item>
-                <md-button ng-click = "deleteNote(note)">
+                <md-button ng-click="deleteNote(note)">
                   <div class="moreMenu"> Delete forever </div>
                 </md-button>
               </md-menu-item>
               <md-menu-item>
-                <md-button ng-click = "isRestore(note)">
+                <md-button ng-click="isRestore(note)">
                   <div class="moreMenu"> Restore </div>
                 </md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
         </div>
-      </md-whiteframe>
 
-    </md-card>
+      </md-card>
+    </div>
   </div>
-</div>
 </div>

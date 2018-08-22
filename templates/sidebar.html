@@ -6,7 +6,7 @@
       <span class="sidebarFont"> Notes </span></a>
     </div>
     <div class="div-section">
-      <a class="link" ui-sref="home"><img src="assets/images/reminders.svg" class="sidebarIcon" />
+      <a class="link" ui-sref="home.reminder"><img src="assets/images/reminders.svg" class="sidebarIcon" />
       <span class="sidebarFont"> Reminders </span></a>
     </div>
   </section>
@@ -19,8 +19,10 @@
 
     <div ng-repeat="label in labels">
       <div class="div-section">
+        <a class="link" ui-sref="home.label({label: '{{label.labelname}}'})">
         <img src="assets/images/round-label-24px.svg" class="sidebarIcon">
-          <span class="sidebarFont"> {{label.labelname}} </span>
+          <span class="sidebarFont"> {{label.labelName}} </span>
+        </a>
       </div>
     </div>
 

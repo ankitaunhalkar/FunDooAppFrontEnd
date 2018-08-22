@@ -293,3 +293,42 @@
   text-transform: capitalize;
   border-radius: 3px;
 }
+
+.profile-pic {
+  margin-left: 20px;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+/* .profile-pic:hover {
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 10000;
+  color: #fff;
+  transition: all .3s ease;
+  text-decoration: none;
+} */
+
+.profile-pic span {
+  background: rgba(0, 0, 0, .54);
+  bottom: 0;
+  color: #fff;
+  font-size: 9px;
+  font-weight: bold;
+  left: 0;
+  line-height: 9px;
+  position: absolute;
+  padding: 7px 0;
+  text-align: center;
+  width: 96px;
+}

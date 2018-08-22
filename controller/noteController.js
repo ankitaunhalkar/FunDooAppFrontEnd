@@ -1,4 +1,39 @@
-app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $window, UserService) {
+app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $stateParams, UserService) {
+
+  $scope.getInitials = function (name) {
+console.log(name);
+                  var canvas = document.createElement('canvas');
+                  canvas.style.display = 'none';
+                  canvas.width = '32';
+                  canvas.height = '32';
+                  document.body.appendChild(canvas);
+                  var context = canvas.getContext('2d');
+                  context.fillStyle = "#999";
+                  context.fillRect(0, 0, canvas.width, canvas.height);
+                  context.font = "16px Arial";
+                  context.fillStyle = "#ccc";
+                  var first, last;
+                  if (name && name.first && name.first != '') {
+                      first = name.first[0];
+                      console.log(first);
+
+                      last = name.last && name.last != '' ? name.last[0] : null;
+                      if (last) {
+                          var initials = first + last;
+                          context.fillText(initials.toUpperCase(), 3, 23);
+                      } else {
+                          var initials = first;
+                          context.fillText(initials.toUpperCase(), 10, 23);
+                      }
+                      var data = canvas.toDataURL();
+                      document.body.removeChild(canvas);
+                      return data;
+                  } else {
+                      return false;
+                  }
+          }
+
+  $scope.labelname = $stateParams.label;
 
   $rootScope.$state = $state;
 
@@ -191,7 +226,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       $scope.notes = response.data;
       // $scope.d = response.data.description;
     }, function errorCallback(response) {
-      console.log("Error");
+      console.log("Error" + response);
     });
   }
 
@@ -326,6 +361,43 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
+  //Add label to note
+  $scope.addlabel = function(note, label) {
+    var url = "http://localhost:8080/fundoonotes/addlabel/" + label.id;
+
+    var token = {
+      'Authorization': localStorage.getItem('loginToken')
+    };
+
+    UserService.putMethod(note, url, token).then(function successCallback(response) {
+      console.log(response);
+      getnotes();
+      getlabels();
+      // dashboardlabels();
+    }, function errorCallback(response) {
+      console.log("Error");
+    });
+
+  }
+
+  //Add label to note
+  $scope.removelabel = function(note, label) {
+    var url = "http://localhost:8080/fundoonotes/removelabel/" + label.id;
+
+    var token = {
+      'Authorization': localStorage.getItem('loginToken')
+    };
+
+    UserService.putMethod(note, url, token).then(function successCallback(response) {
+      getnotes();
+      getlabels();
+      // dashboardlabels();
+    }, function errorCallback(response) {
+      console.log("Error");
+    });
+
+  }
+
   $scope.fullScreenImage = function(ev, note) {
     $mdDialog.show({
       locals: {
@@ -358,6 +430,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         colorChange: $scope.updateColor,
         colorbox: $scope.colors,
         fullScreen: $scope.fullScreenImage,
+        morepanel: $scope.openMorePanelMenu,
+        removelabel: $scope.removelabel,
+        sc:$scope,
         events: ev
       },
       controller: updateController,
@@ -369,13 +444,27 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   //dailog's controller
-  function updateController(updateNote, update, archive, trash, pin, events, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, $scope) {
+  function updateController(updateNote,sc, update, archive, trash, pin, events, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
     $scope.newTitle = updateNote.title;
     $scope.newDescription = updateNote.description;
     $scope.color = updateNote.color;
     $scope.image = updateNote.image;
     $scope.colors = colorbox;
+    $scope.note = updateNote;
+    // morepanel(event,updateNote);
+    // $scope.morepanel = morepanel(event,updateNote);
+    // console.log(sc);
+    // $scope.morepanel = sc.openMorePanelMenu;
+    // console.log($scope.morepanel);
 
+    $scope.moremenu = function (event) {
+      morepanel(event,updateNote)
+    }
+
+    $scope.removelabelnote = function (label) {
+      console.log(label);
+      removelabel(updateNote, label);
+    }
     $scope.close = function() {
       updateNote.title = $scope.newTitle;
       updateNote.description = $scope.newDescription;
@@ -426,7 +515,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       imageDelete(updateNote);
     }
 
-  }
+  }      getlabels();
+
 
   $scope.removeReminder = function(note) {
     note.reminder = null;
@@ -591,28 +681,82 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     }
   }
 
-  $scope.showlabelMenu = function(ev) {
+  $scope.openMorePanelMenu = function(ev, note) {
     var position = $mdPanel.newPanelPosition()
       .relativeTo(ev.target)
       .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
 
     var config = {
+      locals: {
+        updateNote: note,
+        trash: $scope.isTrash,
+        update: $scope.updateNote,
+        addlabelnote: $scope.addlabel,
+        removelabelnote: $scope.removelabel
+      },
       attachTo: angular.element(document.body),
-      controller: panelLenuCtrl,
+      controller: panelMoreMenuCtrl,
       templateUrl: 'templates/labelpanel.html',
-      panelClass: 'reminder-menu',
+      panelClass: 'more-menu',
       position: position,
       openFrom: ev,
       clickOutsideToClose: true,
       escapeToClose: true,
       focusOnOpen: false,
-      zIndex: 2
+      zIndex: 9999
     };
 
     $mdPanel.open(config);
   };
 
-  function panelLenuCtrl($scope) {
+  function panelMoreMenuCtrl(mdPanelRef, updateNote, update, addlabelnote, removelabelnote, trash, $scope) {
+
+    $scope.selected = updateNote.notelabel;
+
+    $scope.toggle = function(label, list) {
+      var flag = true;
+      for(var i=0;i<list.length;i++){
+        var selectedItem = list[i];
+        if(selectedItem.labelName == label.labelname){
+          list.splice(i, 1);
+          removelabelnote(updateNote, label);
+          flag = false;
+        }
+      }
+      if(flag){
+        list.push(label);
+        addlabelnote(updateNote, label);
+      }
+      // var idx = list.indexOf(label);
+      // if (idx > -1) {
+      //   list.splice(idx, 1);
+      //   removelabelnote(updateNote, label);
+      // } else {
+      //   list.push(label);
+      //   addlabelnote(updateNote, label);
+      // }
+    };
+
+    $scope.exists = function(label, list)
+    {
+
+      for (var i = 0; i < list.length; i++) {
+        var selected = list[i];
+
+          if( selected.labelName == label.labelName)
+          {
+            return true;
+          }
+        }
+        return false;
+       // return list.indexOf(label) > -1;
+    };
+
+    $scope.trash = function() {
+      trash(updateNote);
+      mdPanelRef && mdPanelRef.close();
+    }
+
     //Get Labels
     $scope.getlabels = function() {
 
