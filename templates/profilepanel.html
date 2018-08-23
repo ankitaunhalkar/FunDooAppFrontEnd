@@ -1,0 +1,13 @@
+  <div class="profile" ng-click="updateProfile($event)">
+      <div layout="row">
+        <div class="profile-pic">
+          <img ng-src="{{getInitials(showname)}}">
+          <span>Change</span>
+        </div>
+        <span class="nameFont">{{showname}}</span>
+        <div class="emailFont">{{showemail}}</div>
+      </div>
+      <div>
+        <md-button class="md-raised" id="signoutBtn" ng-click="signOut()">Sign out</md-button>
+      </div>
+</div>

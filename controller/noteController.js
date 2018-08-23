@@ -1,37 +1,27 @@
 app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $stateParams, UserService) {
 
-  $scope.getInitials = function (name) {
-console.log(name);
-                  var canvas = document.createElement('canvas');
-                  canvas.style.display = 'none';
-                  canvas.width = '32';
-                  canvas.height = '32';
-                  document.body.appendChild(canvas);
-                  var context = canvas.getContext('2d');
-                  context.fillStyle = "#999";
-                  context.fillRect(0, 0, canvas.width, canvas.height);
-                  context.font = "16px Arial";
-                  context.fillStyle = "#ccc";
-                  var first, last;
-                  if (name && name.first && name.first != '') {
-                      first = name.first[0];
-                      console.log(first);
 
-                      last = name.last && name.last != '' ? name.last[0] : null;
-                      if (last) {
-                          var initials = first + last;
-                          context.fillText(initials.toUpperCase(), 3, 23);
-                      } else {
-                          var initials = first;
-                          context.fillText(initials.toUpperCase(), 10, 23);
-                      }
-                      var data = canvas.toDataURL();
-                      document.body.removeChild(canvas);
-                      return data;
-                  } else {
-                      return false;
-                  }
-          }
+
+
+  $scope.getInitials = function(name) {
+    var canvas = document.createElement('canvas');
+    canvas.style.display = 'none';
+    canvas.width = '100';
+    canvas.height = '100';
+    document.body.appendChild(canvas);
+    var context = canvas.getContext('2d');
+    context.fillStyle = "#999";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.font = "50px Arial";
+    context.fillStyle = "#ccc";
+    var first;
+    first = name.charAt(0);
+    var initials = first;
+    context.fillText(initials.toUpperCase(), 35, 60);
+    var data = canvas.toDataURL();
+    document.body.removeChild(canvas);
+    return data;
+  }
 
   $scope.labelname = $stateParams.label;
 
@@ -152,12 +142,7 @@ console.log(name);
     $scope.isProfileVisible = $scope.isProfileVisible ? false : true;
   }
 
-  //User Sign-Out
-  $scope.signOut = function() {
-    localStorage.removeItem('loginToken');
-    localStorage.removeItem('userData');
-    $state.go('login');
-  }
+
 
   //Trash
   $scope.isTrash = function(note) {
@@ -432,7 +417,7 @@ console.log(name);
         fullScreen: $scope.fullScreenImage,
         morepanel: $scope.openMorePanelMenu,
         removelabel: $scope.removelabel,
-        sc:$scope,
+        sc: $scope,
         events: ev
       },
       controller: updateController,
@@ -444,7 +429,7 @@ console.log(name);
   }
 
   //dailog's controller
-  function updateController(updateNote,sc, update, archive, trash, pin, events, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
+  function updateController(updateNote, sc, update, archive, trash, pin, events, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
     $scope.newTitle = updateNote.title;
     $scope.newDescription = updateNote.description;
     $scope.color = updateNote.color;
@@ -457,11 +442,11 @@ console.log(name);
     // $scope.morepanel = sc.openMorePanelMenu;
     // console.log($scope.morepanel);
 
-    $scope.moremenu = function (event) {
-      morepanel(event,updateNote)
+    $scope.moremenu = function(event) {
+      morepanel(event, updateNote)
     }
 
-    $scope.removelabelnote = function (label) {
+    $scope.removelabelnote = function(label) {
       console.log(label);
       removelabel(updateNote, label);
     }
@@ -515,7 +500,8 @@ console.log(name);
       imageDelete(updateNote);
     }
 
-  }      getlabels();
+  }
+  getlabels();
 
 
   $scope.removeReminder = function(note) {
@@ -715,15 +701,15 @@ console.log(name);
 
     $scope.toggle = function(label, list) {
       var flag = true;
-      for(var i=0;i<list.length;i++){
+      for (var i = 0; i < list.length; i++) {
         var selectedItem = list[i];
-        if(selectedItem.labelName == label.labelname){
+        if (selectedItem.labelName == label.labelname) {
           list.splice(i, 1);
           removelabelnote(updateNote, label);
           flag = false;
         }
       }
-      if(flag){
+      if (flag) {
         list.push(label);
         addlabelnote(updateNote, label);
       }
@@ -737,19 +723,17 @@ console.log(name);
       // }
     };
 
-    $scope.exists = function(label, list)
-    {
+    $scope.exists = function(label, list) {
 
       for (var i = 0; i < list.length; i++) {
         var selected = list[i];
 
-          if( selected.labelName == label.labelName)
-          {
-            return true;
-          }
+        if (selected.labelName == label.labelName) {
+          return true;
         }
-        return false;
-       // return list.indexOf(label) > -1;
+      }
+      return false;
+      // return list.indexOf(label) > -1;
     };
 
     $scope.trash = function() {
@@ -778,4 +762,86 @@ console.log(name);
     $scope.getlabels();
   }
 
+
+  $scope.openProfilePanel = function(ev) {
+    var position = $mdPanel.newPanelPosition()
+      .relativeTo(ev.target)
+      .addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
+
+    var config = {
+      locals: {
+        name: $scope.showname,
+        email: $scope.showemail,
+        initials: $scope.getInitials,
+        dialog: $scope.profileDialog
+      },
+      attachTo: angular.element(document.body),
+      controller: profileCtrl,
+      templateUrl: 'templates/profilepanel.html',
+      panelClass: 'profile',
+      position: position,
+      openFrom: ev,
+      clickOutsideToClose: true,
+      escapeToClose: true,
+      focusOnOpen: false,
+      zIndex: 10
+    };
+
+    $mdPanel.open(config);
+  };
+
+  function profileCtrl(name, email, initials, mdPanelRef, dialog, $scope) {
+    $scope.myImage = '';
+    $scope.myCroppedImage = '';
+
+    $scope.showname = name;
+    $scope.showemail = email;
+    $scope.getInitials = function(username) {
+      return initials(username);
+    }
+
+    //User Sign-Out
+    $scope.signOut = function() {
+      localStorage.removeItem('loginToken');
+      localStorage.removeItem('userData');
+      mdPanelRef && mdPanelRef.close();
+      $state.go('login');
+    }
+
+    $scope.updateProfile = function(event) {
+      dialog(event);
+    }
+  }
+
+  $scope.profileDialog = function(ev) {
+    $mdDialog.show({
+      controller: profileController,
+      templateUrl: 'templates/profiledialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+  function profileController($scope, $timeout) {
+    $scope.myImage = '';
+    $scope.myCroppedImage = '';
+
+    var handleFileSelect = function(evt) {
+      var file = evt.currentTarget.files[0];
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        $scope.$apply(function($scope) {
+          $scope.myImage = evt.target.result;
+        });
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // angular.element(document.getElementById('fileInput')).on('change',handleFileSelect);
+    $timeout(function() {
+      console.log("timeout");
+      angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+    }, 1000, false);
+  }
 });

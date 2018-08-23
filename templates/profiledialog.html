@@ -1,0 +1,12 @@
+<md-dialog style="padding: 17px 20px; width:500px;">
+  <div class="profile-text">Select profile photo </div>
+  <input type="file" id="fileInput" style="padding-top: 5; padding-bottom: 10;"/>
+   <div class="cropArea">
+     <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+   </div>
+   <div style="padding-top: 5; padding-bottom: 10;">Cropped Image:</div>
+   <div style="padding-left: 142px; padding-right: 50px"><img ng-src="{{myCroppedImage}}" /></div>
+   <md-button class="set-profile-btn">
+       Set as profile photo
+   </md-button>
+</md-dialog>

@@ -1,53 +1,53 @@
-<md-toolbar ng-style="toolbar" class="transition" layout="row" id="toolbar" >
+<md-toolbar ng-style="toolbar" class="transition" layout="row" id="toolbar">
 
-    <md-button ng-hide="$state.is('home.search')" class="md-icon-button" id="menuicon" ng-click="toggleLeft()">
-      <img src="assets/images/round-menu-24px.svg"/>
-      <md-tooltip id="tooltip">Main-Menu</md-tooltip>
+  <md-button ng-hide="$state.is('home.search')" class="md-icon-button" id="menuicon" ng-click="toggleLeft()">
+    <img src="assets/images/round-menu-24px.svg" />
+    <md-tooltip id="tooltip">Main-Menu</md-tooltip>
+  </md-button>
+
+  <md-button ng-show="$state.is('home.search')" class="md-icon-button" id="menuicon" ng-click="goback()">
+    <img src="assets/images/round-arrow_back-24px.svg" />
+    <md-tooltip id="tooltip">Back</md-tooltip>
+  </md-button>
+
+  <span class="todoFont"> TODO </span>
+  <span class="notesFont"> Notes </span>
+
+  <div ng-hide="$state.is('home.search')" class="searchBox" ng-click="search()">
+    <md-button class="md-icon-button">
+      <img src="assets/images/round-search-24px.svg" id="searchIcon" />
     </md-button>
+    <input type="text" ng-model="searchText" placeholder="Search" class="searchInputBox">
+    <md-tooltip id="tooltip">Search</md-tooltip>
+  </div>
 
-    <md-button ng-show="$state.is('home.search')" class="md-icon-button" id="menuicon" ng-click="goback()">
-      <img src="assets/images/round-arrow_back-24px.svg" />
-      <md-tooltip id="tooltip">Back</md-tooltip>
+  <div ng-show="$state.is('home.search')" class="searchingBox">
+    <md-button class="md-icon-button">
+      <img src="assets/images/round-search-24px.svg" id="searchIcon" />
     </md-button>
-
-    <span class="todoFont"> TODO </span>
-    <span class="notesFont"> Notes </span>
-
-    <div ng-hide="$state.is('home.search')" class="searchBox" ng-click="search()" >
-      <md-button class="md-icon-button">
-        <img src="assets/images/round-search-24px.svg" id="searchIcon" />
-      </md-button>
-      <input type="text" ng-model="searchText" placeholder="Search" class="searchInputBox">
-      <md-tooltip id="tooltip">Search</md-tooltip>
-    </div>
-
-    <div ng-show="$state.is('home.search')" class="searchingBox" >
-      <md-button class="md-icon-button">
-        <img src="assets/images/round-search-24px.svg" id="searchIcon" />
-      </md-button>
-      <input type="text" ng-model="searchText" placeholder="Search" class="searchingInputBox">
-      <md-button class="md-icon-button cancelIcon" ng-click="clear()">
-        <img src="assets/images/cancel.svg" id="searchIcon"/>
-      </md-button>
-      <md-tooltip id="tooltip">Search</md-tooltip>
-    </div>
-
-    <md-button class="md-icon-button" id="refreshIcon">
-      <img src="assets/images/round-refresh-24px.svg" />
-      <md-tooltip id="tooltip">Refresh</md-tooltip>
+    <input type="text" ng-model="searchText" placeholder="Search" class="searchingInputBox">
+    <md-button class="md-icon-button cancelIcon" ng-click="clear()">
+      <img src="assets/images/cancel.svg" id="searchIcon" />
     </md-button>
+    <md-tooltip id="tooltip">Search</md-tooltip>
+  </div>
 
-    <md-button class="md-icon-button" ng-show="!listview" id="gridListIcon" ng-click="girdView(); listview=true;">
-      <img src="assets/images/round-view_stream-24px.svg" />
-      <md-tooltip id="tooltip"> List View </md-tooltip>
-    </md-button>
+  <md-button class="md-icon-button" id="refreshIcon">
+    <img src="assets/images/round-refresh-24px.svg" />
+    <md-tooltip id="tooltip">Refresh</md-tooltip>
+  </md-button>
 
-    <md-button ng-show="listview" class="md-icon-button" id="viewListIcon" ng-click="listView(); listview=false">
-      <img src="assets/images/round-view_quilt-24px.svg" />
-      <md-tooltip id="tooltip"> Grid View </md-tooltip>
-    </md-button>
+  <md-button class="md-icon-button" ng-show="!listview" id="gridListIcon" ng-click="girdView(); listview=true;">
+    <img src="assets/images/round-view_stream-24px.svg" />
+    <md-tooltip id="tooltip"> List View </md-tooltip>
+  </md-button>
 
-    <!-- <md-button class="md-icon-button" id="appsIcon">
+  <md-button ng-show="listview" class="md-icon-button" id="viewListIcon" ng-click="listView(); listview=false">
+    <img src="assets/images/round-view_quilt-24px.svg" />
+    <md-tooltip id="tooltip"> Grid View </md-tooltip>
+  </md-button>
+
+  <!-- <md-button class="md-icon-button" id="appsIcon">
       <img src="assets/images/round-apps-24px.svg" />
       <md-tooltip id="tooltip">Apps</md-tooltip>
     </md-button>
@@ -57,32 +57,13 @@
       <md-tooltip id="tooltip">Notification</md-tooltip>
     </md-button> -->
 
-    <md-button class="md-icon-button" id="accountIcon" ng-click="profile()">
-      <img src="assets/images/round-account_circle-24px.svg" />
-      <md-tooltip id="tooltip">Account</md-tooltip>
-    </md-button>
+  <md-button class="md-icon-button" id="accountIcon" ng-click="openProfilePanel($event)">
+    <img src="assets/images/round-account_circle-24px.svg" />
+    <md-tooltip id="tooltip">Account</md-tooltip>
+  </md-button>
 </md-toolbar>
 
-<div style="z-index:1">
-<div ng-show="isProfileVisible" style="margin: 0px;" class="profile">
-  <md-card class="profileCard">
-    <div layout="row">
-      <div class="profile-pic">
-        <img ng-src="{{profilePicUrl || getInitials(showname)}}" alt="{{user.name.first}}">
-
-
-        <span >Change</span>
-
-      </div>
-      <!-- <img src="assets/images/user.png" class="profileImg"/> -->
-      <span class="nameFont">{{showname}}</span>
-      <div class="emailFont">{{showemail}}</div>
-    </div>
-    <div>
-        <md-button class="md-raised" id="signoutBtn" ng-click="signOut()">Sign out</md-button>
-    </div>
-</div>
-    <!-- <md-menu>
+  <!-- <md-menu>
       <md-button class="md-icon-button" id="moreNoteIcon" ng-click="openMoreMenu($mdMenu, $event)">
         <img src="assets/images/round-more_vert-24px.svg" class="moreIcon">
         <md-tooltip id="tooltip">More</md-tooltip>

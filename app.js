@@ -1,4 +1,4 @@
-var app = angular.module('fundooApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router','content-editable','angular.filter']);
+var app = angular.module('fundooApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router', 'content-editable', 'angular.filter', 'ngImgCrop']);
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('register', {
@@ -31,25 +31,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'noteController'
     })
 
-    .state('home.search',{
+    .state('home.search', {
       url: '/search',
       templateUrl: 'templates/search.html',
       controller: 'noteController'
     })
 
-    .state('home.dashboard',{
+    .state('home.dashboard', {
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
       controller: 'noteController'
     })
 
-    .state('home.trash',{
+    .state('home.trash', {
       url: '/trash',
       templateUrl: 'templates/trash.html',
       controller: 'noteController'
     })
 
-    .state('home.archive',{
+    .state('home.archive', {
       url: '/archive',
       templateUrl: 'templates/archive.html',
       controller: 'noteController'
@@ -61,12 +61,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'noteController'
     })
 
-    .state('home.reminder',{
+    .state('home.reminder', {
       url: '/reminder',
       templateUrl: 'templates/reminders.html',
       controller: 'noteController'
     })
-    
-    $urlRouterProvider.otherwise('/login');
+
+  $urlRouterProvider.otherwise('/login');
 
 });
