@@ -175,10 +175,15 @@
   opacity: 0.5;
 }
 
-#accountIcon {
-  margin-left: 100px;
-  margin-top: 12px;
-  opacity: 0.5;
+.accountIcon {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  overflow: hidden;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  outline:transparent;
 }
 
 #sidebar {

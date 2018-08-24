@@ -1,26 +1,9 @@
 app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $stateParams, UserService) {
 
 
-
-
-  $scope.getInitials = function(name) {
-    var canvas = document.createElement('canvas');
-    canvas.style.display = 'none';
-    canvas.width = '100';
-    canvas.height = '100';
-    document.body.appendChild(canvas);
-    var context = canvas.getContext('2d');
-    context.fillStyle = "#999";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.font = "50px Arial";
-    context.fillStyle = "#ccc";
-    var first;
-    first = name.charAt(0);
-    var initials = first;
-    context.fillText(initials.toUpperCase(), 35, 60);
-    var data = canvas.toDataURL();
-    document.body.removeChild(canvas);
-    return data;
+  $scope.refreshPage = function() {
+    console.log("inside refresh");
+    window.location.reload();
   }
 
   $scope.labelname = $stateParams.label;
@@ -336,13 +319,10 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     if ((localStorage.getItem("loginToken") === null) && (localStorage.getItem("userData") === null)) {
       $state.go('login');
     } else {
-      $scope.user = JSON.parse(localStorage.getItem('userData'));
-      $scope.showemail = $scope.user.email;
-      $scope.showname = $scope.user.username;
-
+      var user = loadprofile();
+      $scope.image = user.profile;
       getnotes();
       getlabels();
-
     }
   }
 
@@ -762,6 +742,13 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $scope.getlabels();
   }
 
+  function loadprofile() {
+    $scope.user = JSON.parse(localStorage.getItem('userData'));
+    return $scope.user;
+    // $scope.showemail = $scope.user.email;
+    // $scope.showname = $scope.user.username;
+
+  }
 
   $scope.openProfilePanel = function(ev) {
     var position = $mdPanel.newPanelPosition()
@@ -770,10 +757,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
 
     var config = {
       locals: {
-        name: $scope.showname,
-        email: $scope.showemail,
-        initials: $scope.getInitials,
-        dialog: $scope.profileDialog
+        dialog: $scope.profileDialog,
+        profileInfo: loadprofile
       },
       attachTo: angular.element(document.body),
       controller: profileCtrl,
@@ -790,14 +775,36 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $mdPanel.open(config);
   };
 
-  function profileCtrl(name, email, initials, mdPanelRef, dialog, $scope) {
+  function profileCtrl(profileInfo, mdPanelRef, dialog, $scope) {
     $scope.myImage = '';
     $scope.myCroppedImage = '';
 
-    $scope.showname = name;
-    $scope.showemail = email;
-    $scope.getInitials = function(username) {
-      return initials(username);
+
+    $scope.user = profileInfo();
+
+    $scope.showname = $scope.user.username;
+    $scope.showemail = $scope.user.email;
+    $scope.showprofile = $scope.user.profile;
+
+
+    $scope.getInitials = function(name) {
+      var canvas = document.createElement('canvas');
+      canvas.style.display = 'none';
+      canvas.width = '100';
+      canvas.height = '100';
+      document.body.appendChild(canvas);
+      var context = canvas.getContext('2d');
+      context.fillStyle = "#999";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.font = "50px Arial";
+      context.fillStyle = "#ccc";
+      var first;
+      first = name.charAt(0);
+      var initials = first;
+      context.fillText(initials.toUpperCase(), 35, 60);
+      var data = canvas.toDataURL();
+      document.body.removeChild(canvas);
+      return data;
     }
 
     //User Sign-Out
@@ -819,7 +826,24 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       templateUrl: 'templates/profiledialog.html',
       parent: angular.element(document.body),
       targetEvent: ev,
-      clickOutsideToClose: true
+      clickOutsideToClose: true,
+    });
+  }
+
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n) {
+      // u8arr[n] = bstr.charCodeAt(n);
+      // n--;
+      u8arr[n - 1] = bstr.charCodeAt(n - 1)
+      n -= 1
+    }
+    return new File([u8arr], filename, {
+      type: mime
     });
   }
 
@@ -827,8 +851,13 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $scope.myImage = '';
     $scope.myCroppedImage = '';
 
+    $scope.close = function() {
+      $mdDialog.hide();
+    }
+
+    var file;
     var handleFileSelect = function(evt) {
-      var file = evt.currentTarget.files[0];
+      file = evt.currentTarget.files[0];
       var reader = new FileReader();
       reader.onload = function(evt) {
         $scope.$apply(function($scope) {
@@ -843,5 +872,42 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       console.log("timeout");
       angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
     }, 1000, false);
+
+    $scope.saveProfile = function(newfile) {
+
+      $scope.profiledata = {
+        profile: newfile
+      }
+      var url = "http://localhost:8080/fundoonotes/setprofile";
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.putMethod($scope.profiledata, url, token).then(function successCallback(response) {
+        console.log(response);
+        localStorage.setItem("userData", JSON.stringify(response.data));
+        $mdDialog.hide();
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+
+
+    }
+    $scope.uploadProfile = function(myCroppedImage) {
+
+      var newfile = dataURLtoFile(myCroppedImage, file.name);
+      console.log(newfile);
+
+      var url = "http://localhost:8080/fundoonotes/uploadimage";
+
+      UserService.postImageMethod(url, newfile).then(function successCallback(response) {
+        console.log(response.data.message);
+        var file = response.data.message;
+        console.log(file);
+        $scope.saveProfile(file)
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
   }
 });

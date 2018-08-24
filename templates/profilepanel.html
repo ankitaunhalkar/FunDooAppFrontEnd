@@ -1,7 +1,7 @@
   <div class="profile" ng-click="updateProfile($event)">
       <div layout="row">
         <div class="profile-pic">
-          <img ng-src="{{getInitials(showname)}}">
+          <img ng-src="{{showprofile || getInitials(showname)}}">
           <span>Change</span>
         </div>
         <span class="nameFont">{{showname}}</span>
