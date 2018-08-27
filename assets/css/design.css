@@ -257,7 +257,6 @@
   width: 330px;
   margin-top: 24px;
   position: relative;
-  cursor: pointer;
 }
 
 .profileCard {
@@ -318,6 +317,7 @@
   transition: all .3s ease;
   text-decoration: none;
   position: relative;
+  outline: transparent;
 }
 
 /* .profile-pic:hover {

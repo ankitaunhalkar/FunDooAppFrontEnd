@@ -15,7 +15,8 @@
 
       <div ng-if="note.title" ng-click="showDialog($event,note)" class="cardTitle">{{note.title}}</div>
 
-      <md-card-content ng-if="note.description" ng-click="showDialog($event,note)" class="cardDescription" id="description">{{note.description}}</md-card-content>
+      <md-card-content ng-if="note.description" ng-click="showDialog($event,note)" class="cardDescription" id="description"><span ng-bind-html="note.description | linky"></span>
+      </md-card-content>
       <div layout='row' layout-wrap>
         <md-chips class="reminder-chip" ng-if="note.reminder">
           <md-chip style="position: relative">

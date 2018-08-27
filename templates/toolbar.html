@@ -58,7 +58,8 @@
     </md-button> -->
 
   <div ng-click="openProfilePanel($event)" class="accountIcon">
-    <img ng-src="{{image}}" style="width: 32px; height: 32px; cursor:pointer;"/>
+    <img ng-src="{{image || getInitials(name)}}" style="width: 32px; height: 32px; cursor:pointer;">
+
     <md-tooltip id="tooltip">Account</md-tooltip>
   </div>
 </md-toolbar>

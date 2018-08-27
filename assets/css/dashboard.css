@@ -383,22 +383,12 @@ input[type='file'].hidden {
   margin: 0;
   padding: 0;
   position: absolute;
-  top: 10px;
-  right: 8px;
+  left: 11px;
+  top: 11px;
   cursor: pointer;
   opacity: 0;
   width: 18px;
   height: 18px;
-}
-
-.hiddenFileInputContainter {
-  position: relative;
-  display: inline-block;
-  width: 27px;
-  height: 27px;
-  overflow: hidden;
-  vertical-align: middle;
-  cursor: pointer;
 }
 
 .imageSize {

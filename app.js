@@ -1,4 +1,4 @@
-var app = angular.module('fundooApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router', 'content-editable', 'angular.filter', 'ngImgCrop']);
+var app = angular.module('fundooApp', ['ngMaterial', 'ngAria', 'ngAnimate', 'ui.router', 'content-editable', 'angular.filter', 'ngImgCrop', 'ngSanitize']);
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('register', {

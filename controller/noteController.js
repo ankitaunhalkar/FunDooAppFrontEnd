@@ -1,5 +1,24 @@
-app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $mdDialog, $mdPanel, $stateParams, UserService) {
+app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state, $sanitize, $mdDialog, $mdPanel, $stateParams, UserService) {
 
+  $scope.getInitials = function(name) {
+    var canvas = document.createElement('canvas');
+    canvas.style.display = 'none';
+    canvas.width = '100';
+    canvas.height = '100';
+    document.body.appendChild(canvas);
+    var context = canvas.getContext('2d');
+    context.fillStyle = "#999";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.font = "50px Arial";
+    context.fillStyle = "#ccc";
+    var first;
+    first = name.charAt(0);
+    var initials = first;
+    context.fillText(initials.toUpperCase(), 35, 60);
+    var data = canvas.toDataURL();
+    document.body.removeChild(canvas);
+    return data;
+  }
 
   $scope.refreshPage = function() {
     console.log("inside refresh");
@@ -321,6 +340,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     } else {
       var user = loadprofile();
       $scope.image = user.profile;
+      $scope.name = user.username;
       getnotes();
       getlabels();
     }
@@ -409,9 +429,10 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   //dailog's controller
-  function updateController(updateNote, sc, update, archive, trash, pin, events, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
+  function updateController(updateNote, sc, update, archive, trash, pin, events, $sanitize, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
     $scope.newTitle = updateNote.title;
-    $scope.newDescription = updateNote.description;
+    // console.log();
+    $scope.newDescription = $sanitize(updateNote.description);
     $scope.color = updateNote.color;
     $scope.image = updateNote.image;
     $scope.colors = colorbox;
@@ -758,7 +779,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     var config = {
       locals: {
         dialog: $scope.profileDialog,
-        profileInfo: loadprofile
+        profileInfo: loadprofile,
+        initials: $scope.getInitials
       },
       attachTo: angular.element(document.body),
       controller: profileCtrl,
@@ -775,7 +797,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $mdPanel.open(config);
   };
 
-  function profileCtrl(profileInfo, mdPanelRef, dialog, $scope) {
+  function profileCtrl(profileInfo, mdPanelRef, initials, dialog, $scope) {
     $scope.myImage = '';
     $scope.myCroppedImage = '';
 
@@ -787,24 +809,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $scope.showprofile = $scope.user.profile;
 
 
-    $scope.getInitials = function(name) {
-      var canvas = document.createElement('canvas');
-      canvas.style.display = 'none';
-      canvas.width = '100';
-      canvas.height = '100';
-      document.body.appendChild(canvas);
-      var context = canvas.getContext('2d');
-      context.fillStyle = "#999";
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      context.font = "50px Arial";
-      context.fillStyle = "#ccc";
-      var first;
-      first = name.charAt(0);
-      var initials = first;
-      context.fillText(initials.toUpperCase(), 35, 60);
-      var data = canvas.toDataURL();
-      document.body.removeChild(canvas);
-      return data;
+    $scope.getInitials = function(username) {
+      return initials(username);
     }
 
     //User Sign-Out
