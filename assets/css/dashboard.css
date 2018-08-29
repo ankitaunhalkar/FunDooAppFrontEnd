@@ -428,3 +428,32 @@ input[type='file'].hidden {
   font-size: 13px;
   outline: transparent;
 }
+
+.url-image {
+  height: 56px;
+  width: 56px;
+  flex: 0 0 auto;
+}
+
+.url-image-size {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.url-title {
+  margin: 0;
+  font-family: 'Roboto Condensed', arial, sans-serif;
+  color: rgba(0, 0, 0, .87);
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+.url-description {
+  margin: 0;
+  font-family: 'Roboto Condensed', arial, sans-serif;
+  color: rgba(0, 0, 0, .87);
+  font-size: 12px;
+  padding-bottom: 5px;
+  opacity: 0.5
+}
