@@ -457,3 +457,11 @@ input[type='file'].hidden {
   padding-bottom: 5px;
   opacity: 0.5
 }
+
+.collab-title {
+  font-size: 18px;
+  font-weight: 550;
+  height: 25px;
+  padding: 0 0 10px 0;
+  font-family: 'Roboto',arial,sans-serif;
+}

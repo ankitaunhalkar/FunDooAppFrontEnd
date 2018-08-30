@@ -418,6 +418,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         morepanel: $scope.openMorePanelMenu,
         removelabel: $scope.removelabel,
         sc: $scope,
+        getnotes: getnotes,
         events: ev
       },
       controller: updateController,
@@ -429,9 +430,8 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   //dailog's controller
-  function updateController(updateNote, sc, update, archive, trash, pin, events, $sanitize, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
+  function updateController(updateNote, sc, getnotes, update, archive, trash, pin, events, $sanitize, removelabel, updateImage, fullScreen, colorbox, colorMenu, colorChange, imageDelete, morepanel, $scope) {
     $scope.newTitle = updateNote.title;
-    // console.log();
     $scope.newDescription = $sanitize(updateNote.description);
     $scope.color = updateNote.color;
     $scope.image = updateNote.image;
@@ -447,6 +447,21 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       morepanel(event, updateNote)
     }
 
+    $scope.removeurl = function (url) {
+      var url = "http://localhost:8080/fundoonotes/removeurlinfo/" + url.id;
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.putMethod(updateNote, url, token).then(function successCallback(response) {
+        console.log(response);
+        getnotes();
+        $mdDialog.hide();
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
     $scope.removelabelnote = function(label) {
       console.log(label);
       removelabel(updateNote, label);
@@ -915,5 +930,24 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
         console.log("Error");
       });
     }
+  }
+
+  //Update dialog box
+  $scope.showCollabDialog = function(ev, note) {
+    $mdDialog.show({
+      locals: {
+        note: note
+      },
+      controller: collaboratorCntrl,
+      templateUrl: 'templates/collaboratedialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
+
+  //dailog's controller
+  function collaboratorCntrl(){
+
   }
 });

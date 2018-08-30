@@ -33,11 +33,17 @@
         </md-chips>
       </div>
       <options></options>
-      <div ng-if="note.urlInfo" ng-repeat="url in note.urlInfo" layout="row" style="position:relative; background-color:white; border-top: 1px solid rgba(0,0,0,0.12);">
-        <div class="url-image">
+      <div ng-if="note.urlInfo" ng-repeat="url in note.urlInfo" layout="row" style="position:relative; border-top: 1px solid rgba(0,0,0,0.12);">
+        <a ng-href="{{url.url}}" target="_blank">
+          <div style="position:absolute; right:2; top:2">
+            <img src="assets/images/icons8-external-link.svg" style="width:14px; height:14px; opacity:0.5">
+          </div>
+        </a>
+
+        <div class="url-image" style="background-color:white">
           <img ng-src="{{url.urlImage}}" class="url-image-size">
         </div>
-        <div flex style="padding: 8px 10px;">
+        <div flex style="padding: 8px 10px; background-color: rgba(250,250,250,0.8);">
           <p class="url-title md-truncate">{{url.urlTitle}}</p>
           <p class="url-description">{{url.urlDescription}}</p>
         </div>
