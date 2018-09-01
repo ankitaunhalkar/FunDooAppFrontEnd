@@ -14,7 +14,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     var first;
     first = name.charAt(0);
     var initials = first;
-    context.fillText(initials.toUpperCase(), 35, 60);
+    context.fillText(initials.toUpperCase(), 32, 65);
     var data = canvas.toDataURL();
     document.body.removeChild(canvas);
     return data;
@@ -447,7 +447,7 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       morepanel(event, updateNote)
     }
 
-    $scope.removeurl = function (url) {
+    $scope.removeurl = function(url) {
       var url = "http://localhost:8080/fundoonotes/removeurlinfo/" + url.id;
 
       var token = {
@@ -781,9 +781,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   function loadprofile() {
     $scope.user = JSON.parse(localStorage.getItem('userData'));
     return $scope.user;
-    // $scope.showemail = $scope.user.email;
-    // $scope.showname = $scope.user.username;
-
   }
 
   $scope.openProfilePanel = function(ev) {
@@ -905,7 +902,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
       };
 
       UserService.putMethod($scope.profiledata, url, token).then(function successCallback(response) {
-        console.log(response);
         localStorage.setItem("userData", JSON.stringify(response.data));
         $mdDialog.hide();
       }, function errorCallback(response) {
@@ -917,7 +913,6 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
     $scope.uploadProfile = function(myCroppedImage) {
 
       var newfile = dataURLtoFile(myCroppedImage, file.name);
-      console.log(newfile);
 
       var url = "http://localhost:8080/fundoonotes/uploadimage";
 
@@ -936,7 +931,9 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   $scope.showCollabDialog = function(ev, note) {
     $mdDialog.show({
       locals: {
-        note: note
+        note: note,
+        owner: loadprofile,
+        intialImage: $scope.getInitials
       },
       controller: collaboratorCntrl,
       templateUrl: 'templates/collaboratedialog.html',
@@ -947,7 +944,33 @@ app.controller('noteController', function($rootScope, $scope, $mdSidenav, $state
   }
 
   //dailog's controller
-  function collaboratorCntrl(){
+  function collaboratorCntrl(note, owner, intialImage, $scope) {
+    console.log(note);
+    $scope.owner = owner();
+    $scope.intialImage = function (username) {
+      return intialImage(username);
+    }
 
+    $scope.note = note;
+
+    $scope.addemail = function () {
+
+      var data = {
+        email: $scope.adduser
+      }
+
+      var url = "http://localhost:8080/fundoonotes/addcollaborator/"+note.id;
+
+      var token = {
+        'Authorization': localStorage.getItem('loginToken')
+      };
+
+      UserService.postMethod(data, url, token).then(function successCallback(response) {
+        note.collabrators.push(response.data);
+        $scope.adduser = null;
+      }, function errorCallback(response) {
+        console.log("Error");
+      });
+    }
   }
 });

@@ -463,5 +463,53 @@ input[type='file'].hidden {
   font-weight: 550;
   height: 25px;
   padding: 0 0 10px 0;
-  font-family: 'Roboto',arial,sans-serif;
+  font-family: 'Roboto', arial, sans-serif;
+}
+
+.collab-image {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+  overflow: hidden;
+}
+
+.collab-image-size {
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.ownername-font {
+  font-size: 13px;
+  font-weight: 550;
+  font-family: 'Roboto', arial, sans-serif;
+}
+
+.owneremail-font {
+  font-size: 13px;
+  font-family: 'Roboto', arial, sans-serif;
+  opacity: 0.5;
+}
+
+.collab-add-user-icon {
+  background-size: 18px 24px;
+  height: 100%;
+  opacity: .5;
+  width: 100%;
+}
+
+.collab-input {
+  flex: 1 0 auto;
+  margin: 5px 13px;
+  border: none;
+  outline: transparent;
+  font-size: 13px;
+  font-family: 'Roboto', arial, sans-serif;
+  height: 25px;
+  outline: none;
+  padding: 0;
 }

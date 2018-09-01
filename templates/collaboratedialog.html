@@ -2,6 +2,40 @@
   <div style="padding: 15px 15px 0;">
     <div class="collab-title"> Collaborator </div>
     <md-divider></md-divider>
-    Owner
+    <div style="overflow-x: hidden;overflow-y: auto;padding: 10px 0;">
+      <div layout="row" style="position:relative; display: flex; padding: 5px;">
+        <div class="collab-image">
+          <img ng-src="{{owner.profile || intialImage(owner.username)}}" class="collab-image-size">
+        </div>
+        <div style="flex: 1 0 auto;margin: 5px 13px;">
+          <span class="ownername-font">{{owner.username}} </span>
+          <span style="font-style: italic;margin-left: 5px; font-size:13px">(Owner)</span>
+          <div class="owneremail-font">{{owner.email}}</div>
+        </div>
+      </div>
+
+      <div ng-repeat="user in note.collabrators">
+          <div layout="row" style="position:relative; display: flex; padding: 5px;">
+            <div class="collab-image">
+              <img ng-src="{{user.image || intialImage(user.name)}}" class="collab-image-size">
+            </div>
+            <div style="flex: 1 0 auto;margin: 5px 13px;">
+              <span class="ownername-font">{{user.name}} </span>
+              <span style="font-style: italic;margin-left: 5px; font-size:13px"></span>
+              <div class="owneremail-font">{{user.email}}</div>
+            </div>
+          </div>
+      </div>
+
+      <div layout="row" style="position:relative; display: flex; padding: 5px;">
+        <div style="border: 1px solid rgba(0,0,0,.5); overflow: hidden; border-radius: 50%;height: 40px;width: 40px;">
+          <div class="collab-add-user-icon" layout layout-align="center center">
+            <img style="height:20px; width:20px" src="assets/images/round-person_add-24px.svg">
+          </div>
+        </div>
+        <input type="text" ng-model="adduser" placeholder="Person or email to share with" class="collab-input">
+        <img ng-if="adduser" style="height:18px;width:18px;margin:5px; opacity:0.5" src="assets/images/icons8-checkmark.svg" ng-click="addemail()">
+      </div>
+    </div>
   </div>
 </md-dialog>
